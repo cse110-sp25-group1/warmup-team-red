@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en-US">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link
+      rel="icon"
+      type="image/x-icon"
+      href="https://assets.ctfassets.net/sm166qdr1jca/2FyqNQVf20uKZmTUET6rsq/6672b524e82f27c8d15139ce233143ed/favicon.ico"
+    />
+    <title>Blackjack</title>
+
+    <!-- inter font -->
+    <link rel="preconnect" href="https://rsms.me/" />
+    <link rel="stylesheet" href="https://rsms.me/inter/inter.css" />
+
+    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="card.css" />
+
+    <script src="index.js" type="module"></script>
+    <script>
+      // only browsers supporting `type="module"` for `<script>`s has `noModule`
+      if (!("noModule" in document.createElement("script"))) {
+        alert("please get a newer browser 😭🙏");
+      }
+    </script>
+  </head>
+  <body>
+    <header style="margin: 4rem">
+      <div class="button-container">
+        <button id="start-game" style="transition: all 0.5s">Start Game</button>
+        <div class="button-background"></div>
+      </div>
+    </header>
+
+    <div
+      id="app-container"
+      style="
+        position: relative;
+        width: 75vw;
+        height: 60vh;
+
+        outline: 1px black solid;
+        margin: auto;
+      "
+    >
+      <div
+        id="app"
+        style="position: absolute; margin: 0 auto; width: 75vw; height: 60vh"
+      ></div>
+
+      <p id="in-game-display-player-amount"></p>
+
+      <div id="dealer-sum-container">
+        <p id="dealer-sum"></p>
+      </div>
+
+      <div id="player-sum-container">
+        <p id="player-sum"></p>
+      </div>
+
+      <div id="start-game-modal-background">
+        <div id="start-game-modal">
+          <h2>Welcome!</h2>
+          <p>
+            You got <span id="start-game-modal-player-amount"></span> monies.
+          </p>
+          <p>How much would you like to bet?</p>
+          <input id="bet-amount" type="text" />
+
+          <div style="height: 24px"></div>
+
+          <div class="button-container" style="width: 6rem; height: 3rem">
+            <button id="play-button">Play</button>
+            <div class="button-background"></div>
+          </div>
+        </div>
+      </div>
+
+      <div id="playing-options">
+        <div class="button-container">
+          <button id="hit">
+            <span
+              style="
+                display: flex;
+                width: 50%;
+                margin: 0 auto;
+                justify-content: space-between;
+                align-items: center;
+                gap: 12px;
+                font-size: 1rem;
+              "
+            >
+              <img alt="Hit icon" src="hit.svg" />
+              Hit
+            </span>
+          </button>
+          <div class="button-background"></div>
+        </div>
+
+        <div class="button-container">
+          <button id="stand">
+            <span
+              style="
+                display: flex;
+                width: 50%;
+                margin: 0 auto;
+                justify-content: space-between;
+                align-items: center;
+                gap: 12px;
+                font-size: 1rem;
+              "
+            >
+              <img alt="Stand icon" src="stand.svg" />
+              Stand
+            </span>
+          </button>
+          <div class="button-background"></div>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>
