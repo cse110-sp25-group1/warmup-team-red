@@ -1,53 +1,37 @@
 // @ts-check
 
 import { totalDeck } from "./card_data.js";
-import { getCardHtml } from "./card.js";
 import { shuffle } from "./utils.js";
+import { Constants } from "./constants.js";
+import { renderPhantomDeck } from "./deck.js";
+import { AppState } from "./app_state.js";
 
-const N = 8;
+/**
+ * @type {Constants}
+ */
+export let constants;
+/**
+ * @type {AppState}
+ */
+export let state;
 
 window.addEventListener('DOMContentLoaded', () => {
+  let app = document.getElementById("app");
+  if (!app) return;
+
+  constants = new Constants(app.clientWidth, app.clientHeight);
+
   let deck = [...totalDeck];
   shuffle(deck);
 
-  let cards = document.getElementById("cards");
-  let clickMeButton = document.getElementById("clickme");
+  state = new AppState(constants, deck);
 
-  if (!cards || !clickMeButton) return;
-
-  cards.innerHTML =
-    deck.slice(0, N).map((card, i) => getCardHtml(card, i)).join("");
-
-  clickMeButton.onclick = clickMeButtonOnClick;
+  setupButtons();
 });
 
-async function clickMeButtonOnClick() {
-  let x = Array.from(Array(N).keys());
-  shuffle(x);
+function setupButtons() {
+  let drawCardButton = document.getElementById("draw-card-button");
+  if (!drawCardButton) return;
 
-  for (let i = 0; i < N; i++) {
-    let card = document.getElementById(`card-${i}`);
-    let inner = document.getElementById(`inner-${i}`);
-    if (!card || !inner) continue;
-
-    card.style.top = `0px`;
-    card.style.transform = `translate(360px, 0px)`;
-
-    inner.classList.add("flip-card-inner-flipped");
-  }
-
-  await new Promise((r) => setTimeout(r, 1000));
-
-  for (let i = 0; i < N; i++) {
-    let card = document.getElementById(`card-${i}`);
-    let inner = document.getElementById(`inner-${i}`);
-    if (!card || !inner) continue;
-
-    card.style.zIndex = x[i].toString();
-    card.style.top = `${x[i] * 24}px`;
-    card.style.transform = `translate(0px, 0px)`;
-
-    inner.classList.remove("flip-card-inner-flipped");
-  }
+  drawCardButton.onclick = () => { state.drawCard() };
 }
-

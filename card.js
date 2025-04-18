@@ -1,32 +1,111 @@
 // @ts-check
 
 import { getCardImageUrl } from "./card_data.js";
+import { constants } from "./index.js";
+import { getPileLocation } from "./positions.js";
 
 /**
  * @import {Card} from "./card_data"
  */
 
 /**
- * 
- * @param {Card} card 
- * @param {number} i 
+ * @param {Card} card
  * @returns {string}
  */
-export function getCardHtml(card, i) {
+function getCardId(card) {
+  return card.value + "-" + card.suit;
+}
+
+/**
+ * @param {Card} card
+ * @param {number} initialTop
+ * @param {number} initialLeft
+ * @returns {string}
+ */
+function getCardHtml(card, initialTop, initialLeft) {
+  let cardId = getCardId(card);
   return `
-      <div class="flip-card" style="position: absolute; top: ${8 * i}px; left: 0px;" id="card-${i}">
-        <div class="flip-card-inner" id="inner-${i}" style="width: 240px;">
-          <div class="flip-card-front">
-            <img src="${getCardImageUrl(card)}" alt="Avatar" style="width: 240px; height: 360px;" />
-          </div>
-          <div
-            class="flip-card-back"
-            style="display: flex; flex-direction: column; justify-content: center; align-items: center;"
-          >
-            <img src="https://i.imgur.com/NvVlPXm.png" alt="Team logo" style="width: 180px;" />
-            <p>Black Jack<br/>by the Aces</p>
-          </div>
+    <div
+      id="card-${cardId}"
+      class="flip-card"
+      style="top: ${initialTop}px; left: ${initialLeft}px; width: ${constants.cardWidth}px; height: ${constants.cardHeight}px"
+    >
+      <div class="flip-card-inner flip-card-inner-flipped" id="inner-${cardId}">
+        <div class="flip-card-front">
+          <img
+            src="${getCardImageUrl(card)}"
+            alt="Card"
+            style="width: ${constants.cardWidth}px; height: ${constants.cardHeight}px"
+          />
+        </div>
+        <div
+          class="flip-card-back"
+          style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: ${constants.cardWidth}px; height: ${constants.cardHeight}px; border-radius: ${29.944447 / 360 * constants.cardWidth}px"
+        >
+          <img src="https://i.imgur.com/NvVlPXm.png" alt="Team logo" style="width: ${constants.cardWidth * 0.75}px" />
+          <p>Black Jack<br/>by the Aces</p>
         </div>
       </div>
-      `;
+    </div>
+  `;
+}
+
+/**
+ * Render a card initially, complete with animations.
+ *
+ * @param {Card} card
+ * @param {number} top
+ * @param {number} left
+ * @param {boolean} [flip=true] (Default: `true`) If selected, the card will be flipped and revealed.
+ * @param {boolean} [rotate=true] (Default: `true`) If selected, the card will have a random rotation animation.
+ */
+export function renderCard(card, top, left, flip = true, rotate = true) {
+  const app = document.getElementById("app");
+  if (!app) return;
+
+  let id = getCardId(card);
+  let cardId = `card-${id}`;
+  let innerId = `inner-${id}`;
+
+  if (document.getElementById(cardId) != null) return;
+
+  const [initialTop, initialLeft] = getPileLocation();
+
+  let div = document.createElement("div");
+  div.setHTMLUnsafe(getCardHtml(card, initialTop, initialLeft));
+  app.appendChild(div);
+
+  let cardElem = document.getElementById(cardId);
+  let innerElem = document.getElementById(innerId);
+
+  // original transform applied
+  requestAnimationFrame(() => {
+    // so now in the next frame we can change it
+    requestAnimationFrame(() => {
+      if (!cardElem) return;
+      if (!innerElem) return;
+      cardElem.style.top = `${top}px`;
+      cardElem.style.left = `${left}px`;
+      if (rotate) cardElem.style.transform = `rotateZ(${Math.random() * 10 - 5}deg)`;
+      if (flip) innerElem.classList.toggle("flip-card-inner-flipped");
+    });
+  });
+}
+
+/**
+ *
+ * @param {Card} card
+ * @param {number} top
+ * @param {number} left
+ * @param {boolean} rotate (Default: `true`) If selected, the card will be flipped and revealed.
+ */
+export function moveCard(card, top, left, rotate = true) {
+  let id = getCardId(card);
+  let cardId = `card-${id}`;
+  let cardElem = document.getElementById(cardId);
+  if (cardElem == null) return;
+
+  cardElem.style.top = `${top}px`;
+  cardElem.style.left = `${left}px`;
+  if (rotate) cardElem.style.transform = `rotateZ(${Math.random() * 10 - 5}deg)`;
 }
