@@ -39,6 +39,7 @@ function getDeck() {
             default_deck.push(i);
         }
 
+        console.log(`\"deck\" not set in local storage, using and setting default value of ${default_deck}`);
         localStorage.setItem("deck", default_deck.toString());
         return default_deck;
     }
@@ -65,6 +66,7 @@ function getPlayerHand() {
     } else {
         const default_player_hand = [];
         
+        console.log(`\"player_hand\" not set in local storage, using and setting default value of ${default_player_hand}`);
         localStorage.setItem("player_hand", default_player_hand.toString());
         return default_player_hand;
     }
@@ -91,6 +93,7 @@ function getDealerHand() {
     } else {
         const default_dealer_hand = [];
         
+        console.log(`\"dealer_hand\" not set in local storage, using and setting default value of ${default_dealer_hand}`);
         localStorage.setItem("dealer_hand", default_dealer_hand.toString());
         return default_dealer_hand;
     }
@@ -117,6 +120,7 @@ function getPlayerBank() {
     } else {
         const default_player_bank = 100;
 
+        console.log(`\"player_bank\" not set in local storage, using and setting default value of ${default_player_bank}`);
         localStorage.setItem("player_bank", default_player_bank.toString());
         return default_player_bank;
     }
