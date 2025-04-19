@@ -1,6 +1,6 @@
-import {createDeck} from './deck.js'
 
 //randomly sort cards
+
 
 export function shuffleDeck(deck){
     for (let i=0; i < deck.length; i++){
