@@ -7,7 +7,7 @@
  * - Creates dealer hand (empty)
  * - Creates player bank (0) 
  */
-function resetState() {
+export function resetState() {
     localStorage.clear();
 
     const deck = [];
@@ -27,7 +27,7 @@ function resetState() {
  * - Note: Returns and sets default deck (1 - 52 unshuffled) in local storage when not set
  * @returns {Number[]}
  */
-function getDeck() {
+export function getDeck() {
     const deck = localStorage.getItem("deck");
 
     if (deck) {
@@ -49,7 +49,7 @@ function getDeck() {
  * Helper function for setting the game deck
  * @param {Number[]} deck
  */
-function setDeck(deck) {
+export function setDeck(deck) {
     localStorage.setItem("deck", deck.toString());
 }
 
@@ -58,7 +58,7 @@ function setDeck(deck) {
  * - Note: Returns and sets default player hand (empty) in local storage when not set
  * @returns {Number[]}
  */
-function getPlayerHand() {
+export function getPlayerHand() {
     const player_hand = localStorage.getItem("player_hand");
 
     if (player_hand) {
@@ -76,7 +76,7 @@ function getPlayerHand() {
  * Helper function for setting the player hand
  * @param {Number[]} deck
  */
-function setPlayerHand(deck) {
+export function setPlayerHand(deck) {
     localStorage.setItem("player_hand", deck.toString());
 }
 
@@ -85,7 +85,7 @@ function setPlayerHand(deck) {
  * - Note: Returns and sets default dealer hand (empty) in local storage when not set
  * @returns {Number[]}
  */
-function getDealerHand() {
+export function getDealerHand() {
     const dealer_hand = localStorage.getItem("dealer_hand");
 
     if (dealer_hand) {
@@ -103,7 +103,7 @@ function getDealerHand() {
  * Helper function for setting the dealer hand
  * @param {Number[]} deck
  */
-function setDealerHand(deck) {
+export function setDealerHand(deck) {
     localStorage.setItem("dealer_hand", deck.toString());
 }
 
@@ -112,7 +112,7 @@ function setDealerHand(deck) {
  * - Note: Returns and sets default player bank balance (100) in local storage when not set
  * @returns {Number}
  */
-function getPlayerBank() {
+export function getPlayerBank() {
     const player_bank = localStorage.getItem("player_bank");
 
     if (player_bank) {
@@ -130,8 +130,6 @@ function getPlayerBank() {
  * Helper function for getting the player bank balance
  * @param {Number} balance
  */
-function setPlayerBank(balance) {
+export function setPlayerBank(balance) {
     localStorage.setItem("player_bank", balance.toString());
 }
-
-resetState();
