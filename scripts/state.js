@@ -1,4 +1,6 @@
 // @ts-check
+import { createDefaultDeck } from "./cards.js";
+
 
 /**
  * Sets up game
@@ -10,16 +12,27 @@
 export function resetState() {
     localStorage.clear();
 
-    const deck = [];
-
-    for (let i = 1; i <= 52; i++) {
-        deck.push(i);
-    }
+    const deck = createDefaultDeck();
 
     localStorage.setItem("deck", deck.toString());
     localStorage.setItem("player_hand", [].toString());
     localStorage.setItem("dealer_hand", [].toString());
-    localStorage.setItem("player_bank", 0..toString());
+    localStorage.setItem("player_bank", 100..toString());
+}
+
+
+/**
+ * Sets up *new* game (reset cards, but not money)
+ * - Creates a regular deck (1 - 52 unshuffled)
+ * - Creates player hand (empty)
+ * - Creates dealer hand (empty)
+ */
+export function resetGameState() {
+    const deck = createDefaultDeck();
+
+    localStorage.setItem("deck", deck.toString());
+    localStorage.setItem("player_hand", [].toString());
+    localStorage.setItem("dealer_hand", [].toString());
 }
 
 /**
@@ -33,14 +46,11 @@ export function getDeck() {
     if (deck) {
         return deck.split(",").map(c => Number.parseInt(c));
     } else {
-        let default_deck = []
-
-        for (let i = 1; i <= 52; i++) {
-            default_deck.push(i);
-        }
+        let default_deck = createDefaultDeck();
 
         console.log(`\"deck\" not set in local storage, using and setting default value of ${default_deck}`);
         localStorage.setItem("deck", default_deck.toString());
+
         return default_deck;
     }
 }
@@ -68,6 +78,7 @@ export function getPlayerHand() {
         
         console.log(`\"player_hand\" not set in local storage, using and setting default value of ${default_player_hand}`);
         localStorage.setItem("player_hand", default_player_hand.toString());
+
         return default_player_hand;
     }
 }
