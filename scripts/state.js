@@ -9,7 +9,7 @@ import { createDefaultDeck } from "./cards.js";
  * - Creates dealer hand (empty)
  * - Creates player bank (0) 
  */
-export function resetState() {
+export function resetAllState() {
     localStorage.clear();
 
     const deck = createDefaultDeck();
