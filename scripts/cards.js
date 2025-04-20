@@ -68,3 +68,17 @@ export function dealCardsToDealer(amount = 1) {
 
     return dealt_amount;
 }
+
+/**
+ * Shuffles the deck
+ */
+export function shuffleDeck() {
+    let deck = getDeck();
+
+    for (let i = 0; i < deck.length; i++) {
+        const j = Math.floor(Math.random() * (deck.length));
+        [deck[i], deck[j]] = [deck[j], deck[i]];
+    }
+
+    setDeck(deck);
+}
