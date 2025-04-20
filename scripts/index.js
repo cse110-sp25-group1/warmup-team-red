@@ -1,13 +1,15 @@
 import { resetState, getDeck, setDeck, getPlayerHand, setPlayerHand, getDealerHand, setDealerHand, getPlayerBank, setPlayerBank } from "./state.js";
+import { dealCardToPlayer } from "./cards.js";
 
 resetState();
 
-console.log(getDeck());
-
-setDeck([0,1,2,3,4,5]);
+dealCardToPlayer(2);
 
 console.log(getDeck());
+console.log(getPlayerHand());
 
-localStorage.clear();
+dealCardToPlayer(2);
 
 console.log(getDeck());
+console.log(getPlayerHand());
+

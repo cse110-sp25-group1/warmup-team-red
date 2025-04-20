@@ -1,10 +1,4 @@
-
-
-//creating deck, suit and val
-
-/*representing : 0-51 
- Number % mod 13 => rank
-*/
+import { getDealerHand, getDeck, getPlayerHand, setDealerHand, setDeck, setPlayerHand } from "./state.js";
 
 /**
  * Creates a regular deck (1 - 52 unshuffled)
@@ -20,19 +14,37 @@ export function createDefaultDeck() {
     return deck;
 }
 
+/**
+ * Takes a card from the deck and deals it to the player hand
+ * @param {Number} amount Number of cards to deal (default 1)
+ */
+export function dealCardToPlayer(amount = 1) {
+    const deck = getDeck();
+    const hand = getPlayerHand();
 
-
-//add count amount of cards to player's hand
-
-//dealCards(deck, playerHand, 2); // for starting hand
-export function dealCard(deck, hand, count){
-    for (let i = 0; i < count; i++){
-        //first card in deck list gets appended to hand
+    for (let i = 0; i < amount; i++) {
         hand.push(deck.pop());
     }
-    return hand;
+
+    setDeck(deck);
+    setPlayerHand(hand);
 }
 
+/**
+ * Takes a card from the deck and deals it to the dealer hand
+ * @param {Number} amount Number of cards to deal (default 1)
+ */
+export function dealCardToDealer(amount = 1) {
+    const deck = getDeck();
+    const hand = getDealerHand();
+
+    for (let i = 0; i < amount; i++) {
+        hand.push(deck.pop());
+    }
+
+    setDeck(deck);
+    setDealerHand(hand);
+}
 
 //randomly sort cards
 
