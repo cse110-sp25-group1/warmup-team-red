@@ -1,3 +1,38 @@
+// @ts-check
+
+import { getCardRank, getCardValue } from "./cards.js";
+
+/**
+ * Calculate the blackjack value of a hand
+ * @param {Number[]} hand 
+ */
+export function getHandValue(hand) {
+    let count = 0;
+    let ace_count = 0;
+
+    for (let i = 0; i < hand.length; i++) {
+        const card = hand[i];
+        const rank = getCardRank(card);
+
+        count += getCardValue(card);
+        if (rank === 1) {
+            ace_count += 1;
+        }
+    }
+
+    // For each ace that keeps up above 21, treat as a 1 instead of 11
+    while (count > 21 && ace_count > 0) {
+        count -= 10;
+        ace_count -= 1;
+    }
+
+    return count;
+}
+
+
+
+
+
 
 export function setBet(playerBank, currBet, betAmt){
     //set valid bet
@@ -41,33 +76,6 @@ export function dealersTurn(deck, playerHand, dealerHand){
     return dealerHand;
 }
 
-//helper function
-export function calcHand(hand){
-    let count = 0;
-    let aceCount = 0;
-    for (let i = 0; i < hand.length; i++){
-        const rank = hand[i].rank;
-         //if face card (J,Q,K) = 10
-        if (rank === "J"||rank === "K"||rank === "Q" ){
-            count+=10;
-        }else if(rank === "A"){
-            //if A-> =11
-            count+=11;
-            aceCount++;
-        }else{
-            //count ranks, read string as num
-            count+=parseInt(rank);
-        }   
-    }
-    //there needs to be at least an ace for this to occur
-    while(count>21 && aceCount > 0){
-        //counting ace as 1 now
-        count -=10;
-        //decrease 
-        aceCount--;
-    }
-    return count;
-}
 
 //blackjack is an immediate win (first two cards that were dealt)
 //returns true if received blackjack

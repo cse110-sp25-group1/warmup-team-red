@@ -104,7 +104,7 @@ export function getCardSuit(card) {
 /**
  * Get the value of a card
  * @param {Number} card
- * @returns {Number} The value of the card in terms of blackjack 
+ * @returns {Number} The value of the card in terms of blackjack. Treats aces as 11
  */
 export function getCardValue(card) {
     const rank = getCardRank(card);
