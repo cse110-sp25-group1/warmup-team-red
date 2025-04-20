@@ -1,3 +1,4 @@
+// @ts-check
 import { getDealerHand, getDeck, getPlayerHand, setDealerHand, setDeck, setPlayerHand } from "./state.js";
 
 /**
@@ -17,41 +18,53 @@ export function createDefaultDeck() {
 /**
  * Takes a card from the deck and deals it to the player hand
  * @param {Number} amount Number of cards to deal (default 1)
+ * @returns {Number} Number of cards that were succesfully dealt
  */
-export function dealCardToPlayer(amount = 1) {
+export function dealCardsToPlayer(amount = 1) {
     const deck = getDeck();
     const hand = getPlayerHand();
+    let dealt_amount = 0;
 
     for (let i = 0; i < amount; i++) {
-        hand.push(deck.pop());
+        let card = deck.pop();
+
+        if (card) {
+            hand.push(card);
+            dealt_amount += 1;
+        } else {
+            break;
+        }
     }
 
     setDeck(deck);
     setPlayerHand(hand);
+
+    return dealt_amount;
 }
 
 /**
  * Takes a card from the deck and deals it to the dealer hand
  * @param {Number} amount Number of cards to deal (default 1)
+ * @returns {Number} Number of cards that were succesfully dealt
  */
-export function dealCardToDealer(amount = 1) {
+export function dealCardsToDealer(amount = 1) {
     const deck = getDeck();
     const hand = getDealerHand();
+    let dealt_amount = 0;
 
     for (let i = 0; i < amount; i++) {
-        hand.push(deck.pop());
+        let card = deck.pop();
+
+        if (card) {
+            hand.push(card);
+            dealt_amount += 1;
+        } else {
+            break;
+        }
     }
 
     setDeck(deck);
     setDealerHand(hand);
-}
 
-//randomly sort cards
-
-export function shuffleDeck(deck){
-    for (let i=0; i < deck.length; i++){
-        const shuffle = Math.floor(Math.random()*(deck.length));
-        [deck[i],deck[shuffle]] = [deck[shuffle],deck[i]];
-    }
-    return deck;
+    return dealt_amount;
 }
