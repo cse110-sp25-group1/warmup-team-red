@@ -1,11 +1,28 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Team Red</title>
-</head>
-<body></body>
-
-<script src="/scripts/index.js" type="module"></script>
-<script src="/scripts/state.js" type="module"></script>
-<script src="/scripts/cards.js" type="module"></script>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+    <title>The Aces</title>
+    <script src="index.js" type="module"></script>
+    <script>
+      // only browsers supporting `type="module"` for `<script>`s has `noModule`
+      if (!("noModule" in document.createElement("script"))) {
+        alert("please get a newer browser 😭🙏");
+      }
+    </script>
+  </head>
+  <body>
+    <div id="app">
+      <!-- <button id="draw-card-button">Draw</button> -->
+      <div
+        class="button-container"
+        style="position: absolute; top: 16px; right: 16px"
+      >
+        <span class="button-background"> </span>
+        <button id="draw-card-button">Draw</button>
+      </div>
+    </div>
+  </body>
 </html>

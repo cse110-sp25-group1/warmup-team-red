@@ -1,0 +1,40 @@
+name: Validate HTML
+
+on:
+  push:
+    paths:
+      - '**.html'
+  pull_request:
+    paths:
+      - '**.html'
+
+jobs:
+  html-validation:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Find and validate all HTML files
+        run: |
+          set -e
+          fail=0
+          for file in $(find . -name '*.html'); do
+            echo "🔍 Validating $file..."
+            result=$(curl -s -H "Content-Type: text/html; charset=utf-8" --data-binary "@$file" "https://validator.w3.org/nu/?out=gnu")
+
+            echo "$result" | grep -i 'error:' && {
+              echo "::error file=$file::Validation errors found"
+              echo "$result"
+              fail=1
+            } || {
+              echo "✅ $file passed with no errors"
+            }
+          done
+
+          if [ $fail -ne 0 ]; then
+            echo "❌ HTML validation failed"
+            exit 1
+          else
+            echo "🎉 All HTML files passed validation"
+          fi
