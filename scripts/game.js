@@ -1,5 +1,6 @@
 // @ts-check
 import { getCardRank, getCardValue } from "./cards.js";
+import { getGameState, getPlayerBank, setGameStatus } from "./state.js";
 
 /**
  * Calculate the blackjack value of a hand
@@ -44,4 +45,42 @@ export function handIsBlackjack(hand) {
  */
 export function promptBetAmount() {
     return 0;
+}
+
+/**
+ * Plan, use the game status number to decide what to do each turn. After each step in the game
+ * is processesed call this blackjack_step function again
+ */
+export function blackjack_step() {
+    switch (getGameState()) {
+        // Bet Input
+        case 0: {
+            setGameStatus(1);
+            break;
+        }
+        // Player Turn
+        case 1: {
+            setGameStatus(2);
+            break;
+        }
+        // Dealer Turn
+        case 2: {
+            setGameStatus(3);
+            break;
+        }
+        // Results/Play Again?
+        case 3: {
+            const play_again = getPlayerBank() > 0;
+            if (play_again) {
+                setGameStatus(0);
+            }
+            break;
+        }
+        // Unknown
+        default: {
+            console.log("Unknown game status. Resetting game status to 0.");
+            setGameStatus(0);
+            break;
+        }
+    }
 }
