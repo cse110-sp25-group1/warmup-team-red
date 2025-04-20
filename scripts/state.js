@@ -46,12 +46,8 @@ export function getDeck() {
     if (deck) {
         return deck.split(",").map(c => Number.parseInt(c));
     } else {
-        let default_deck = [];
-
-        console.log(`\"deck\" not set in local storage, using and setting default value of [${default_deck}]`);
-        localStorage.setItem("deck", default_deck.toString());
-
-        return default_deck;
+        // console.log(`\"deck\" not set in local storage, using default value of []`);
+        return [];
     }
 }
 
@@ -73,13 +69,9 @@ export function getPlayerHand() {
 
     if (player_hand) {
         return player_hand.split(",").map(c => Number.parseInt(c));
-    } else {
-        const default_player_hand = [];
-        
-        console.log(`\"player_hand\" not set in local storage, using and setting default value of [${default_player_hand}]`);
-        localStorage.setItem("player_hand", default_player_hand.toString());
-
-        return default_player_hand;
+    } else {        
+        // console.log(`\"player_hand\" not set in local storage, using and setting default value of []`);
+        return [];
     }
 }
 
@@ -101,12 +93,9 @@ export function getDealerHand() {
 
     if (dealer_hand) {
         return dealer_hand.split(",").map(c => Number.parseInt(c));
-    } else {
-        const default_dealer_hand = [];
-        
-        console.log(`\"dealer_hand\" not set in local storage, using and setting default value of [${default_dealer_hand}]`);
-        localStorage.setItem("dealer_hand", default_dealer_hand.toString());
-        return default_dealer_hand;
+    } else {        
+        // console.log(`\"dealer_hand\" not set in local storage, using and setting default value of []`);
+        return [];
     }
 }
 
@@ -130,7 +119,6 @@ export function getPlayerBank() {
         return Number.parseInt(player_bank);
     } else {
         const default_player_bank = 100;
-
         console.log(`\"player_bank\" not set in local storage, using and setting default value of ${default_player_bank}`);
         localStorage.setItem("player_bank", default_player_bank.toString());
         return default_player_bank;
