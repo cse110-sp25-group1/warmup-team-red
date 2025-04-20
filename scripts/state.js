@@ -46,9 +46,9 @@ export function getDeck() {
     if (deck) {
         return deck.split(",").map(c => Number.parseInt(c));
     } else {
-        let default_deck = createDefaultDeck();
+        let default_deck = [];
 
-        console.log(`\"deck\" not set in local storage, using and setting default value of ${default_deck}`);
+        console.log(`\"deck\" not set in local storage, using and setting default value of [${default_deck}]`);
         localStorage.setItem("deck", default_deck.toString());
 
         return default_deck;
@@ -76,7 +76,7 @@ export function getPlayerHand() {
     } else {
         const default_player_hand = [];
         
-        console.log(`\"player_hand\" not set in local storage, using and setting default value of ${default_player_hand}`);
+        console.log(`\"player_hand\" not set in local storage, using and setting default value of [${default_player_hand}]`);
         localStorage.setItem("player_hand", default_player_hand.toString());
 
         return default_player_hand;
@@ -104,7 +104,7 @@ export function getDealerHand() {
     } else {
         const default_dealer_hand = [];
         
-        console.log(`\"dealer_hand\" not set in local storage, using and setting default value of ${default_dealer_hand}`);
+        console.log(`\"dealer_hand\" not set in local storage, using and setting default value of [${default_dealer_hand}]`);
         localStorage.setItem("dealer_hand", default_dealer_hand.toString());
         return default_dealer_hand;
     }
