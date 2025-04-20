@@ -1,6 +1,6 @@
 // @ts-check
 
-import { getCardImageUrl } from "./card_data.js";
+import { getCardUrl } from "./card_data.js";
 import { constants } from "./index.js";
 import { getPileLocation } from "./positions.js";
 
@@ -8,13 +8,6 @@ import { getPileLocation } from "./positions.js";
  * @import {Card} from "./card_data"
  */
 
-/**
- * @param {Card} card
- * @returns {string}
- */
-function getCardId(card) {
-  return card.value + "-" + card.suit;
-}
 
 /**
  * @param {Card} card
@@ -23,17 +16,16 @@ function getCardId(card) {
  * @returns {string}
  */
 function getCardHtml(card, initialTop, initialLeft) {
-  let cardId = getCardId(card);
   return `
     <div
-      id="card-${cardId}"
+      id="card-${card}"
       class="flip-card"
       style="top: ${initialTop}px; left: ${initialLeft}px; width: ${constants.cardWidth}px; height: ${constants.cardHeight}px"
     >
-      <div class="flip-card-inner flip-card-inner-flipped" id="inner-${cardId}">
+      <div class="flip-card-inner flip-card-inner-flipped" id="inner-${card}">
         <div class="flip-card-front">
           <img
-            src="${getCardImageUrl(card)}"
+            src="${getCardUrl(card)}"
             alt="Card"
             style="width: ${constants.cardWidth}px; height: ${constants.cardHeight}px"
           />
@@ -63,9 +55,8 @@ export function renderCard(card, top, left, flip = true, rotate = true) {
   const app = document.getElementById("app");
   if (!app) return;
 
-  let id = getCardId(card);
-  let cardId = `card-${id}`;
-  let innerId = `inner-${id}`;
+  let cardId = `card-${card}`;
+  let innerId = `inner-${card}`;
 
   if (document.getElementById(cardId) != null) return;
 
@@ -100,8 +91,7 @@ export function renderCard(card, top, left, flip = true, rotate = true) {
  * @param {boolean} rotate (Default: `true`) If selected, the card will be flipped and revealed.
  */
 export function moveCard(card, top, left, rotate = true) {
-  let id = getCardId(card);
-  let cardId = `card-${id}`;
+  let cardId = `card-${card}`;
   let cardElem = document.getElementById(cardId);
   if (cardElem == null) return;
 

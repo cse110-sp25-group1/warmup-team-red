@@ -120,17 +120,17 @@ export function getCardValue(card) {
     }
 }
 
-/**
- * Get the name of a card
- * @param {Number} card
- * @returns {string} The "human readable" name of the card
- */
-export function getCardName(card) {
-    const ranks = ["King", "Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen"];
-    const suits = ["Spades", "Hearts", "Clubs", "Diamonds"];
+// /**
+//  * Get the name of a card
+//  * @param {Number} card
+//  * @returns {string} The "human readable" name of the card
+//  */
+// export function getCardName(card) {
+//     const ranks = ["King", "Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen"];
+//     const suits = ["Spades", "Hearts", "Clubs", "Diamonds"];
 
-    const rank = getCardRank(card);
-    const suit = getCardSuit(card);
+//     const rank = getCardRank(card);
+//     const suit = getCardSuit(card);
 
-    return `${ranks[rank]} of ${suits[suit]}`;
-}
+//     return `${ranks[rank]} of ${suits[suit]}`;
+// }

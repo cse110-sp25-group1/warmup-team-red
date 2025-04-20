@@ -1,10 +1,11 @@
 // @ts-check
 
-import { totalDeck } from "./card_data.js";
-import { shuffle } from "./utils.js";
 import { Constants } from "./constants.js";
 import { renderPhantomDeck } from "./deck.js";
 import { AppState } from "./app_state.js";
+import { getPlayerBank, resetGameState } from "./scripts/state.js";
+import { setupModal } from "./modal.js";
+import { setupActionButtons } from "./action_buttons.js";
 
 /**
  * @type {Constants}
@@ -20,18 +21,15 @@ window.addEventListener('DOMContentLoaded', () => {
   if (!app) return;
 
   constants = new Constants(app.clientWidth, app.clientHeight);
+  setupModal();
+  setupActionButtons();
 
-  let deck = [...totalDeck];
-  shuffle(deck);
+  renderPhantomDeck();
 
-  state = new AppState(constants, deck);
+  resetGameState();
 
-  setupButtons();
+  if (getPlayerBank() < 1) {
+    // Display: You ran out of money. You lose!
+    alert("you lose!");
+  }
 });
-
-function setupButtons() {
-  let drawCardButton = document.getElementById("draw-card-button");
-  if (!drawCardButton) return;
-
-  drawCardButton.onclick = () => { state.drawCard() };
-}

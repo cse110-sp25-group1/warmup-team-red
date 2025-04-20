@@ -1,6 +1,9 @@
 // @ts-check
 import { createDefaultDeck } from "./cards.js";
 
+/**
+ * @import {Card} from "../card_data"
+ */
 
 /**
  * Sets up game
@@ -12,19 +15,8 @@ import { createDefaultDeck } from "./cards.js";
 export function resetAllState() {
     localStorage.clear();
 
-    const deck = createDefaultDeck();
-
-    // Per Game State
-    localStorage.setItem("deck", deck.toString());
-    localStorage.setItem("player_hand", [].toString());
-    localStorage.setItem("dealer_hand", [].toString());
-    localStorage.setItem("game_state", 0..toString());
-    localStorage.setItem("player_bet", 0..toString());
-
-    // Persistent User State
-    localStorage.setItem("player_bank", 100..toString());
+    resetGameState();
 }
-
 
 /**
  * Sets up *new* game (reset cards, but not money)
@@ -47,7 +39,7 @@ export function resetGameState() {
 /**
  * Helper function for getting the game deck.
  * - Note: Returns default deck (0 - 51 unshuffled) when not set
- * @returns {Number[]}
+ * @returns {Card[]}
  */
 export function getDeck() {
     const deck = localStorage.getItem("deck");
@@ -62,7 +54,7 @@ export function getDeck() {
 
 /**
  * Helper function for setting the game deck
- * @param {Number[]} deck
+ * @param {Card[]} deck
  */
 export function setDeck(deck) {
     localStorage.setItem("deck", deck.toString());
@@ -71,14 +63,14 @@ export function setDeck(deck) {
 /**
  * Helper function for getting the player hand
  * - Note: Returns default player hand (empty) when not set
- * @returns {Number[]}
+ * @returns {Card[]}
  */
 export function getPlayerHand() {
     const player_hand = localStorage.getItem("player_hand");
 
     if (player_hand) {
         return player_hand.split(",").map(c => Number.parseInt(c));
-    } else {        
+    } else {
         // console.log(`\"player_hand\" not set in local storage, using and setting default value of []`);
         return [];
     }
@@ -86,7 +78,7 @@ export function getPlayerHand() {
 
 /**
  * Helper function for setting the player hand
- * @param {Number[]} deck
+ * @param {Card[]} deck
  */
 export function setPlayerHand(deck) {
     localStorage.setItem("player_hand", deck.toString());
@@ -95,14 +87,14 @@ export function setPlayerHand(deck) {
 /**
  * Helper function for getting the dealer hand
  * - Note: Returns default dealer hand (empty) when not set
- * @returns {Number[]}
+ * @returns {Card[]}
  */
 export function getDealerHand() {
     const dealer_hand = localStorage.getItem("dealer_hand");
 
     if (dealer_hand) {
         return dealer_hand.split(",").map(c => Number.parseInt(c));
-    } else {        
+    } else {
         // console.log(`\"dealer_hand\" not set in local storage, using and setting default value of []`);
         return [];
     }
@@ -110,7 +102,7 @@ export function getDealerHand() {
 
 /**
  * Helper function for setting the dealer hand
- * @param {Number[]} deck
+ * @param {Card[]} deck
  */
 export function setDealerHand(deck) {
     localStorage.setItem("dealer_hand", deck.toString());
@@ -139,7 +131,8 @@ export function getPlayerBank() {
  * @param {Number} balance
  */
 export function setPlayerBank(balance) {
-    localStorage.setItem("player_bank", balance.toString());
+    if (balance)
+        localStorage.setItem("player_bank", balance.toString());
 }
 
 /**
@@ -171,7 +164,7 @@ export function setPlayerBet(amount) {
 /**
  * Helper function for getting the current game status
  * - 0: Bet Input
- * - 1: Player Turn
+ * - 1: Player Tu   rn
  * - 2: Dealer Turn
  * - 3: Results/Play Again?
  * @returns {Number}
@@ -195,4 +188,13 @@ export function getGameState() {
  */
 export function setGameState(status) {
     localStorage.setItem("game_state", status.toString());
+}
+
+
+/**
+ * 
+ * @returns {boolean | null}
+ */
+export function getIsPreviouslyVisited() {
+    return localStorage.getItem("previously_visited") === "true";
 }

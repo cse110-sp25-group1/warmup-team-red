@@ -12,6 +12,22 @@ export function getPileLocation() {
 }
 
 /**
+ * Get the `top` and `left` coordinates of a dealer's card.
+ * `index` should be from 0 to `outOf - 1` (inclusive).
+ * 
+ * @param {number} index
+ * @param {number} outOf
+ * @returns {[number, number]}
+ */
+export function getDealerCardLocation(index, outOf) {
+    let totalWidth = constants.cardWidth * outOf + constants.cardGap * (outOf - 1);
+    return [
+        0,
+        (constants.viewWidth - totalWidth) / 2 + (constants.cardWidth + constants.cardGap) * index,
+    ];
+}
+
+/**
  * Get the `top` and `left` coordinates of a player's card.
  * `index` should be from 0 to `outOf - 1` (inclusive).
  * 

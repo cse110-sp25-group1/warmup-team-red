@@ -3,8 +3,12 @@ import { getCardRank, getCardValue } from "./cards.js";
 import { getGameState, getPlayerBank, setGameState } from "./state.js";
 
 /**
+ * @import {Card} from "../card_data.js"
+ */
+
+/**
  * Calculate the blackjack value of a hand
- * @param {Number[]} hand 
+ * @param {Card[]} hand 
  * @returns {Number}
  */
 export function getHandValue(hand) {

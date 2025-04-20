@@ -10,7 +10,7 @@ import { getPileLocation } from "./positions.js";
  * @returns {string}
  */
 function getPhantomDeckHtml(initialTop, initialLeft) {
-    return `
+  return `
       <div
         id="phantom-deck"
         class="flip-card-back"
@@ -32,32 +32,32 @@ function getPhantomDeckHtml(initialTop, initialLeft) {
 /**
  * Draw the initial phantom deck for the card pile.
  */
-export async function renderPhantomDeck() {
-    const [top, left] = getPileLocation();
-    const app = document.getElementById("app");
-    if (!app) return;
+export function renderPhantomDeck() {
+  const [top, left] = getPileLocation();
+  const app = document.getElementById("app");
+  if (!app) return;
 
-    let phantomDeck = document.createElement("div");
-    phantomDeck.setHTMLUnsafe(getPhantomDeckHtml(top, left))
-    app.appendChild(phantomDeck);
+  let phantomDeck = document.createElement("div");
+  phantomDeck.setHTMLUnsafe(getPhantomDeckHtml(top, left))
+  app.appendChild(phantomDeck);
 }
 
 /**
  * Hide the phantom deck.
  */
 export function hidePhantomDeck() {
-    const phantomDeck = document.getElementById("phantom-deck");
-    if (!phantomDeck) return;
+  const phantomDeck = document.getElementById("phantom-deck");
+  if (!phantomDeck) return;
 
-    phantomDeck.style.opacity = "0";
+  phantomDeck.style.opacity = "0";
 }
 
 /**
  * Show the phantom deck.
  */
 export function showPhantomDeck() {
-    const phantomDeck = document.getElementById("phantom-deck");
-    if (!phantomDeck) return;
+  const phantomDeck = document.getElementById("phantom-deck");
+  if (!phantomDeck) return;
 
-    phantomDeck.style.opacity = "1";
+  phantomDeck.style.opacity = "1";
 }
