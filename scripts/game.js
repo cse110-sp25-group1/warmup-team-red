@@ -1,10 +1,10 @@
 // @ts-check
-
 import { getCardRank, getCardValue } from "./cards.js";
 
 /**
  * Calculate the blackjack value of a hand
  * @param {Number[]} hand 
+ * @returns {Number}
  */
 export function getHandValue(hand) {
     let count = 0;
@@ -27,4 +27,21 @@ export function getHandValue(hand) {
     }
 
     return count;
+}
+
+/**
+ * Checks if a hand is a blackjack (Ace + 10 value card)
+ * @param {Number[]} hand 
+ * @returns {boolean}
+ */
+export function handIsBlackjack(hand) {
+    return (hand.length === 2) && (getHandValue(hand) === 21);
+}
+
+/**
+ * Asks the player for the bet amount
+ * @returns {Number}
+ */
+export function promptBetAmount() {
+    return 0;
 }
