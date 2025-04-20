@@ -2,13 +2,13 @@
 import { getDealerHand, getDeck, getPlayerHand, setDealerHand, setDeck, setPlayerHand } from "./state.js";
 
 /**
- * Creates a regular deck (1 - 52 unshuffled)
+ * Creates a regular deck (0 - 51 unshuffled)
  * @returns {Number[]}
  */
 export function createDefaultDeck() {
     const deck = [];
 
-    for (let i = 1; i <= 52; i++) {
+    for (let i = 0; i < 52; i++) {
         deck.push(i);
     }
 
@@ -81,4 +81,31 @@ export function shuffleDeck() {
     }
 
     setDeck(deck);
+}
+
+/**
+ * Get the rank of a card
+ * @param {Number} card 
+ * @returns The rank of the card. 1 Ace, 2-10 Numbers, 11 Jack, 12, Queen, 0 King
+ */
+export function getCardRank(card) {
+    return card % 13;
+}
+
+/**
+ * Get the suit of a card
+ * @param {Number} card
+ * @returns The suit of the card. 0 Spades, 1 Hearts, 2 Clubs, 3 Diamonds
+ */
+export function getCardSuit(card) {
+    return Math.floor(card / 13);
+}
+
+/**
+ * Get the value of a card
+ * @param {Number} card
+ * @returns The value of the card in terms of blackjack 
+ */
+export function getCardValue(card) {
+
 }

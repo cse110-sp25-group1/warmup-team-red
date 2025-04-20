@@ -4,7 +4,7 @@ import { createDefaultDeck } from "./cards.js";
 
 /**
  * Sets up game
- * - Creates a regular deck (1 - 52 unshuffled)
+ * - Creates a regular deck (0 - 51 unshuffled)
  * - Creates player hand (empty)
  * - Creates dealer hand (empty)
  * - Creates player bank (0) 
@@ -23,7 +23,7 @@ export function resetState() {
 
 /**
  * Sets up *new* game (reset cards, but not money)
- * - Creates a regular deck (1 - 52 unshuffled)
+ * - Creates a regular deck (0 - 51 unshuffled)
  * - Creates player hand (empty)
  * - Creates dealer hand (empty)
  */
@@ -37,7 +37,7 @@ export function resetGameState() {
 
 /**
  * Helper function for getting the game deck.
- * - Note: Returns and sets default deck (1 - 52 unshuffled) in local storage when not set
+ * - Note: Returns and sets default deck (0 - 51 unshuffled) in local storage when not set
  * @returns {Number[]}
  */
 export function getDeck() {
