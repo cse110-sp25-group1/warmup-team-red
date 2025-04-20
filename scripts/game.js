@@ -1,6 +1,6 @@
 // @ts-check
 import { getCardRank, getCardValue } from "./cards.js";
-import { getGameState, getPlayerBank, setGameStatus } from "./state.js";
+import { getGameState, getPlayerBank, setGameState } from "./state.js";
 
 /**
  * Calculate the blackjack value of a hand
@@ -55,32 +55,101 @@ export function blackjack_step() {
     switch (getGameState()) {
         // Bet Input
         case 0: {
-            setGameStatus(1);
+
+            setGameState(1);
             break;
         }
         // Player Turn
         case 1: {
-            setGameStatus(2);
+            setGameState(2);
             break;
         }
         // Dealer Turn
         case 2: {
-            setGameStatus(3);
+            setGameState(3);
             break;
         }
         // Results/Play Again?
         case 3: {
             const play_again = getPlayerBank() > 0;
             if (play_again) {
-                setGameStatus(0);
+                setGameState(0);
             }
             break;
         }
         // Unknown
         default: {
             console.log("Unknown game status. Resetting game status to 0.");
-            setGameStatus(0);
+            setGameState(0);
             break;
         }
     }
 }
+
+// function blackjack() {
+//     resetGameState();
+
+//     let bet_amount = 0;
+
+//     if (getPlayerBank() >= 1) {
+//         // Input: How much would you like to bet?
+//         bet_amount = promptBetAmount();
+//         setPlayerBank(getPlayerBank() - bet_amount);
+//     } else {
+//         // Display: You ran out of money. You lose!
+//     }
+
+//     dealCardsToPlayer(2);
+//     dealCardsToDealer(2);
+
+//     while (getHandValue(getPlayerHand()) < 21) {
+//         // Input: Hit or Stand?
+//         const hit = true;
+
+//         if (hit) {
+//             dealCardsToPlayer();
+//         }
+//     }
+
+//     // Player bust
+//     if (getHandValue(getPlayerHand()) > 21) {
+//         // Display: You lose!
+//         // Input: Would you like to play again?
+//         // If yes: blackjack();
+//     }
+
+//     while (getHandValue(getDealerHand()) <= 16) {
+//         dealCardsToDealer();
+//     }
+
+//     // Dealer bust
+//     if (getHandValue(getDealerHand()) > 21) {
+//         // Display: You win!
+//         setPlayerBank(getPlayerBank() + (2 * bet_amount));
+//         // Input: Would you like to play again?
+//         // If yes: blackjack();
+//     }
+
+//     const player_hand = getPlayerHand();
+//     const player_hand_value = getHandValue(player_hand);
+//     const player_blackjack = handIsBlackjack(player_hand);
+
+//     const dealer_hand = getDealerHand();
+//     const dealer_hand_value = getHandValue(dealer_hand);
+//     const dealer_blackjack = handIsBlackjack(dealer_hand);
+
+//     if (player_hand_value === dealer_hand_value) {
+//         // Display: Push!
+//         // Input: Would you like to play again?
+//         // If yes: blackjack();
+//     } else if (player_hand_value > dealer_hand_value) {
+//         // Display: You win!
+//         setPlayerBank(getPlayerBank() + (2 * bet_amount));
+//         // Input: Would you like to play again?
+//         // If yes: blackjack();
+//     } else {
+//         // Display: You lose!
+//         // Input: Would you like to play again?
+//         // If yes: blackjack();
+//     }
+// }

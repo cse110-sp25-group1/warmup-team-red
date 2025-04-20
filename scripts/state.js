@@ -193,6 +193,6 @@ export function getGameState() {
  * Helper function for setting the current game status
  * @param {Number} status
  */
-export function setGameStatus(status) {
+export function setGameState(status) {
     localStorage.setItem("game_state", status.toString());
 }
