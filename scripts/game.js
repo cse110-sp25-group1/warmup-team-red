@@ -20,44 +20,13 @@ export function getHandValue(hand) {
         }
     }
 
-    // For each ace that keeps up above 21, treat as a 1 instead of 11
+    // For each ace that keeps us above 21, treat as a 1 instead of 11
     while (count > 21 && ace_count > 0) {
         count -= 10;
         ace_count -= 1;
     }
 
     return count;
-}
-
-
-
-
-
-
-export function setBet(playerBank, currBet, betAmt){
-    //set valid bet
-    if (betAmt <= playerBank && betAmt > 0){
-        currBet = betAmt;
-    }
-    return currBet;
-}
-export function doubleBet(playerBank, currBet){
-    //check if can afford to double
-    if (playerBank >= currBet * 2){
-        currBet*=2;
-    }
-    return {currBet, playerBank};
-}
-
-export function updateBank(playerBank, currBet, result){
-    if (result === "player won"){
-        playerBank+=currBet;
-    }else if(result === "player lost"){
-        playerBank -=currBet;
-    }else if (result==="push"){
-        playerBank = playerBank;
-    }
-    return playerBank;
 }
 
 
@@ -74,18 +43,6 @@ export function dealersTurn(deck, playerHand, dealerHand){
         dealersTotal = calcHand(dealerHand)
     }
     return dealerHand;
-}
-
-
-//blackjack is an immediate win (first two cards that were dealt)
-//returns true if received blackjack
-export function isBlackJack(hand){
-   return hand.length === 2 && (calcHand(hand)===21);
-}
-
-//returns true if sum is over 21
-export function isBust(total){
-    return total > 21;
 }
 
 //returns game outcome in string
