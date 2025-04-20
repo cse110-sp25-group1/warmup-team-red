@@ -1,13 +1,4 @@
-//funtions that help handle game progress
 
-export function reset(){
-    playerHand.length = 0;
-    dealerHand.length = 0;
-    currentBet = 0;
-    playerBank = 1000;
-
-    return { playerHand, dealerHand, currentBet, playerBank };
-}
 export function setBet(playerBank, currBet, betAmt){
     //set valid bet
     if (betAmt <= playerBank && betAmt > 0){
