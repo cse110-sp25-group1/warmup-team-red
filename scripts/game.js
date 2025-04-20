@@ -28,25 +28,3 @@ export function getHandValue(hand) {
 
     return count;
 }
-
-//returns game outcome in string
-export function gameOutcome(playerHand, dealerHand){
-    const playersTotal = calcHand(playerHand);
-    const dealersTotal = calcHand(dealerHand);
-
-    let result = "";
-    if (isBust(playersTotal)){
-        result = "player lost";
-    }else if (isBust(dealersTotal)){
-        result = "player won";
-    }else if (playersTotal === dealersTotal) {
-        result = "push"; // or 'push', depending on how you handle a tie
-    }else{
-        if (playersTotal > dealersTotal) {
-            result = "player won";
-        } else {
-            result = "player lost";
-        }
-    }
-    return result;
-}
