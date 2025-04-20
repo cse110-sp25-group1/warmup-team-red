@@ -86,7 +86,7 @@ export function shuffleDeck() {
 /**
  * Get the rank of a card
  * @param {Number} card 
- * @returns The rank of the card. 1 Ace, 2-10 Numbers, 11 Jack, 12, Queen, 0 King
+ * @returns {Number} The rank of the card. 1 Ace, 2-10 Numbers, 11 Jack, 12, Queen, 0 King
  */
 export function getCardRank(card) {
     return card % 13;
@@ -95,7 +95,7 @@ export function getCardRank(card) {
 /**
  * Get the suit of a card
  * @param {Number} card
- * @returns The suit of the card. 0 Spades, 1 Hearts, 2 Clubs, 3 Diamonds
+ * @returns {Number} The suit of the card. 0 Spades, 1 Hearts, 2 Clubs, 3 Diamonds
  */
 export function getCardSuit(card) {
     return Math.floor(card / 13);
@@ -104,8 +104,33 @@ export function getCardSuit(card) {
 /**
  * Get the value of a card
  * @param {Number} card
- * @returns The value of the card in terms of blackjack 
+ * @returns {Number} The value of the card in terms of blackjack 
  */
 export function getCardValue(card) {
+    const rank = getCardRank(card);
 
+    if ([11, 12, 0].includes(rank)) {
+        return 10;
+    } else if (rank === 1) {
+        return 11;
+    } else if (rank >= 2 && rank <= 10) {
+        return rank;
+    } else {
+        throw new Error(`Invalid rank: ${rank}`);
+    }
+}
+
+/**
+ * 
+ * @param {Number} card
+ * @returns {string} The "human readable" name of the card
+ */
+export function getCardName(card) {
+    const ranks = ["King", "Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen"];
+    const suits = ["Spades", "Hearts", "Clubs", "Diamonds"];
+
+    const rank = getCardRank(card);
+    const suit = getCardSuit(card);
+
+    return `${ranks[rank]} of ${suits[suit]}`;
 }
