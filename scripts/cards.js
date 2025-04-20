@@ -121,7 +121,7 @@ export function getCardValue(card) {
 }
 
 /**
- * 
+ * Get the name of a card
  * @param {Number} card
  * @returns {string} The "human readable" name of the card
  */
