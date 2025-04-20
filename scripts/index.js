@@ -16,7 +16,7 @@ function blackjack() {
 
     if (getPlayerBank() >= 1) {
         // Input: How much would you like to bet?
-        bet_amount = promptBetAmount()
+        bet_amount = promptBetAmount();
         setPlayerBank(getPlayerBank() - bet_amount);
     } else {
         // Display: You ran out of money. You lose!
