@@ -3,6 +3,9 @@
 import { createDefaultDeck } from "./cards.js";
 
 
+export const DEFAULT_PLAYER_BANK = 100;
+
+
 /**
  * @import {Card} from "./cards.js"
  */
@@ -108,15 +111,14 @@ export function setDealerHand(deck) {
  * @returns {Number}
  */
 export function getPlayerBank() {
-    const player_bank = localStorage.getItem("player_bank");
+    const playerBank = localStorage.getItem("player_bank");
 
-    if (player_bank) {
-        return Number.parseInt(player_bank);
+    if (playerBank) {
+        return Number.parseInt(playerBank);
     } else {
-        const default_player_bank = 100;
-        console.log(`\"player_bank\" not set in local storage, using and setting default value of ${default_player_bank}`);
-        localStorage.setItem("player_bank", default_player_bank.toString());
-        return default_player_bank;
+        console.log(`\"player_bank\" not set in local storage, using and setting default value of ${DEFAULT_PLAYER_BANK}`);
+        localStorage.setItem("player_bank", DEFAULT_PLAYER_BANK.toString());
+        return DEFAULT_PLAYER_BANK;
     }
 }
 
