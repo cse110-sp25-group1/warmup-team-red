@@ -25,8 +25,4 @@ window.addEventListener('DOMContentLoaded', () => {
   renderPlayerBank();
 
   resetGameState();
-
-  if (getPlayerBank() < 1) {
-    alert("you lose!");
-  }
 });

@@ -1,12 +1,68 @@
 // @ts-check
 
-import { flipCard } from "../components/card.js";
-import { showDealerHandValue } from "../components/hand_value.js";
-import { dealCardsToDealer, dealCardsToPlayer, getHandValue } from "./cards.js";
+import { showActionButtons } from "../components/action_buttons.js";
+import { flipCard, renderCard } from "../components/card.js";
+import { showDealerHandValue, showPlayerHandValue } from "../components/hand_value.js";
+import { hideModal } from "../components/modal.js";
+import { getDealerCardLocation, getPlayerCardLocation } from "../components/positions.js";
+import { dealCardsToDealer, dealCardsToPlayer, getHandValue, shuffleDeck } from "./cards.js";
 import { hideGameUI, renderDealCardToDealerHand, renderDealCardToPlayerHand, resetGameUI } from "./renderer.js";
 import { getDealerHand, getPlayerBank, getPlayerHand, resetGameState, setPlayerBank } from "./state.js";
 import { sleep } from "./util.js";
 
+
+/**
+ * Starts the game
+ */
+export async function play() {
+    const betAmountElem = /** @type {HTMLInputElement | null} */ (document.getElementById("bet-amount"));
+    if (!betAmountElem) return;
+
+    let betValue = parseInt(betAmountElem.value);
+    if (!/^\d+$/.test(betAmountElem.value) || Number.isNaN(betValue) || betValue <= 0 || betValue > getPlayerBank()) {
+        betAmountElem.classList.add("input-error");
+        return;
+    }
+    betAmountElem.classList.remove("input-error");
+
+    const betAmount = parseInt(betAmountElem.value);
+    setPlayerBank(getPlayerBank() - betAmount);
+
+    hideModal();
+    shuffleDeck();
+
+    dealCardsToDealer(2);
+    dealCardsToPlayer(2);
+
+    const dealer = getDealerHand();
+    const player = getPlayerHand();
+
+    for (let i = 0; i < dealer.length; i++) {
+        renderCard(dealer[i], ...getDealerCardLocation(i, dealer.length), i != 0);
+        await sleep(750);
+    }
+
+    showDealerHandValue(false, true);
+
+    {
+        let ended = checkGameEnded();
+        if (ended != null) { endGame(ended); return; }
+    }
+
+    for (let i = 0; i < player.length; i++) {
+        renderCard(player[i], ...getPlayerCardLocation(i, player.length));
+        await sleep(750);
+    }
+
+    showPlayerHandValue(true);
+
+    {
+        let ended = checkGameEnded();
+        if (ended != null) { endGame(ended); return; }
+    }
+
+    showActionButtons();
+}
 
 /**
  * Performs the actions necessary when the player hits
