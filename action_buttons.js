@@ -1,6 +1,7 @@
 // @ts-check
 
 import { moveCard, renderCard } from "./card.js";
+import { showDealerHandValue, showPlayerHandValue } from "./hand_value.js";
 import { getDealerCardLocation, getPlayerCardLocation } from "./positions.js";
 import { dealCardsToDealer, dealCardsToPlayer } from "./scripts/cards.js";
 import { getHandValue } from "./scripts/game.js";
@@ -22,6 +23,8 @@ export function setupActionButtons() {
             moveCard(card, ...getPlayerCardLocation(i, cards.length)));
         renderCard(lastCard, ...getPlayerCardLocation(cards.length - 1, cards.length));
 
+        showPlayerHandValue();
+
         const handValue = getHandValue(getPlayerHand());
         if (handValue == 21) {
             alert('win!');
@@ -39,6 +42,9 @@ export function setupActionButtons() {
             cards.slice(0, cards.length - 1).forEach((card, i) =>
                 moveCard(card, ...getDealerCardLocation(i, cards.length)));
             renderCard(lastCard, ...getDealerCardLocation(cards.length - 1, cards.length));
+
+            showDealerHandValue();
+
             await sleep(750);
         }
 

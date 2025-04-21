@@ -1,11 +1,10 @@
 // @ts-check
 
-import { getCardUrl } from "./card_data.js";
 import { constants } from "./index.js";
 import { getPileLocation } from "./positions.js";
 
 /**
- * @import {Card} from "./card_data"
+ * @import {Card} from "./scripts/cards"
  */
 
 
@@ -25,7 +24,7 @@ function getCardHtml(card, initialTop, initialLeft) {
       <div class="flip-card-inner flip-card-inner-flipped" id="inner-${card}">
         <div class="flip-card-front">
           <img
-            src="${getCardUrl(card)}"
+            src="assets/cards/${card}.svg"
             alt="Card"
             style="width: ${constants.cardWidth}px; height: ${constants.cardHeight}px"
           />
