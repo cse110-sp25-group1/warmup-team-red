@@ -5,6 +5,7 @@ import { renderCard } from "./card.js";
 import { showDealerHandValue, showPlayerHandValue } from "./hand_value.js";
 import { getDealerCardLocation, getPlayerCardLocation } from "./positions.js";
 import { dealCardsToDealer, dealCardsToPlayer, shuffleDeck } from "./scripts/cards.js";
+import { getHandValue } from "./scripts/game.js";
 import { getDealerHand, getPlayerBank, getPlayerHand, setPlayerBank, setPlayerBet } from "./scripts/state.js";
 import { sleep } from "./scripts/util.js";
 
@@ -15,8 +16,8 @@ export function setupModal() {
 
     playButton.onclick = async () => {
         console.log("play");
-        const bet = parseInt(betAmount.value);
-        setPlayerBank(getPlayerBank() - Number.parseInt(betAmount.value));
+        const bet_amount = parseInt(betAmount.value);
+        setPlayerBank(getPlayerBank() - bet_amount);
 
         hideModal();
         shuffleDeck();

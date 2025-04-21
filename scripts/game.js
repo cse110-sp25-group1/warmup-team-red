@@ -61,7 +61,7 @@ export function actionPlayerHit() {
     if (handValue == 21) {
         alert('win!');
     } else if (handValue > 21) {
-        alert("lose!")
+        alert("lose!");
     }
 }
 
@@ -85,6 +85,6 @@ export async function actionPlayerStand() {
     if (handValue == 21) {
         alert('you lost!');
     } else if (handValue > 21) {
-        alert("you won!")
+        alert("you won!");
     }
 }

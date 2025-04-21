@@ -2,7 +2,7 @@
 import { createDefaultDeck } from "./cards.js";
 
 /**
- * @import {Card} from "../card_data"
+ * @import {Card} from "./cards.js"
  */
 
 /**
@@ -164,7 +164,7 @@ export function setPlayerBet(amount) {
 /**
  * Helper function for getting the current game status
  * - 0: Bet Input
- * - 1: Player Tu   rn
+ * - 1: Player Turn
  * - 2: Dealer Turn
  * - 3: Results/Play Again?
  * @returns {Number}
