@@ -13,6 +13,7 @@ export function setupModal() {
     if (!playButton || !betAmount) return;
 
     playButton.onclick = async () => {
+        console.log("play");
         const bet = parseInt(betAmount.value);
         setPlayerBank(getPlayerBank() - Number.parseInt(betAmount.value));
 

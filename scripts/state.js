@@ -189,12 +189,3 @@ export function getGameState() {
 export function setGameState(status) {
     localStorage.setItem("game_state", status.toString());
 }
-
-
-/**
- * 
- * @returns {boolean | null}
- */
-export function getIsPreviouslyVisited() {
-    return localStorage.getItem("previously_visited") === "true";
-}

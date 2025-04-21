@@ -2,8 +2,12 @@
 import { getDealerHand, getDeck, getPlayerHand, setDealerHand, setDeck, setPlayerHand } from "./state.js";
 
 /**
+ * @typedef {number} Card
+ */
+
+/**
  * Creates a regular deck (0 - 51 unshuffled)
- * @returns {Number[]}
+ * @returns {Card[]}
  */
 export function createDefaultDeck() {
     const deck = [];
@@ -18,19 +22,19 @@ export function createDefaultDeck() {
 /**
  * Takes a card from the deck and deals it to the player hand
  * @param {Number} amount Number of cards to deal (default 1)
- * @returns {Number} Number of cards that were succesfully dealt
+ * @returns {Card[]} Cards that were succesfully dealt
  */
 export function dealCardsToPlayer(amount = 1) {
     const deck = getDeck();
     const hand = getPlayerHand();
-    let dealt_amount = 0;
+    const dealt = [];
 
     for (let i = 0; i < amount; i++) {
         let card = deck.pop();
 
         if (card) {
             hand.push(card);
-            dealt_amount += 1;
+            dealt.push(card);
         } else {
             break;
         }
@@ -39,25 +43,25 @@ export function dealCardsToPlayer(amount = 1) {
     setDeck(deck);
     setPlayerHand(hand);
 
-    return dealt_amount;
+    return dealt;
 }
 
 /**
  * Takes a card from the deck and deals it to the dealer hand
  * @param {Number} amount Number of cards to deal (default 1)
- * @returns {Number} Number of cards that were succesfully dealt
+ * @returns {Card[]} Cards that were succesfully dealt
  */
 export function dealCardsToDealer(amount = 1) {
     const deck = getDeck();
     const hand = getDealerHand();
-    let dealt_amount = 0;
+    const dealt = [];
 
     for (let i = 0; i < amount; i++) {
         let card = deck.pop();
 
         if (card) {
             hand.push(card);
-            dealt_amount += 1;
+            dealt.push(card);
         } else {
             break;
         }
@@ -66,7 +70,7 @@ export function dealCardsToDealer(amount = 1) {
     setDeck(deck);
     setDealerHand(hand);
 
-    return dealt_amount;
+    return dealt;
 }
 
 /**
@@ -85,7 +89,7 @@ export function shuffleDeck() {
 
 /**
  * Get the rank of a card
- * @param {Number} card 
+ * @param {Card} card 
  * @returns {Number} The rank of the card. 1 Ace, 2-10 Numbers, 11 Jack, 12, Queen, 0 King
  */
 export function getCardRank(card) {
@@ -94,7 +98,7 @@ export function getCardRank(card) {
 
 /**
  * Get the suit of a card
- * @param {Number} card
+ * @param {Card} card
  * @returns {Number} The suit of the card. 0 Spades, 1 Hearts, 2 Clubs, 3 Diamonds
  */
 export function getCardSuit(card) {
@@ -103,7 +107,7 @@ export function getCardSuit(card) {
 
 /**
  * Get the value of a card
- * @param {Number} card
+ * @param {Card} card
  * @returns {Number} The value of the card in terms of blackjack. Treats aces as 11
  */
 export function getCardValue(card) {
@@ -120,17 +124,17 @@ export function getCardValue(card) {
     }
 }
 
-// /**
-//  * Get the name of a card
-//  * @param {Number} card
-//  * @returns {string} The "human readable" name of the card
-//  */
-// export function getCardName(card) {
-//     const ranks = ["King", "Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen"];
-//     const suits = ["Spades", "Hearts", "Clubs", "Diamonds"];
+/**
+ * Get the name of a card
+ * @param {Card} card
+ * @returns {string} The "human readable" name of the card
+ */
+export function getCardName(card) {
+    const ranks = ["King", "Ace", "Two", "Three", "Four", "Five", "Six", "Seven", "Eight", "Nine", "Ten", "Jack", "Queen"];
+    const suits = ["Spades", "Hearts", "Clubs", "Diamonds"];
 
-//     const rank = getCardRank(card);
-//     const suit = getCardSuit(card);
+    const rank = getCardRank(card);
+    const suit = getCardSuit(card);
 
-//     return `${ranks[rank]} of ${suits[suit]}`;
-// }
+    return `${ranks[rank]} of ${suits[suit]}`;
+}
