@@ -1,6 +1,6 @@
 // @ts-check
 
-import { constants } from "./index.js";
+import { constants } from "../index.js";
 
 /**
  * Get the `top` and `left` coordinates of the card pile.
@@ -8,7 +8,7 @@ import { constants } from "./index.js";
  * @returns {[number, number]}
  */
 export function getPileLocation() {
-    return [constants.viewHeight / 2 - constants.cardHeight / 2, 0];
+    return [constants.viewHeight / 2 - constants.cardHeight / 2, constants.padding];
 }
 
 /**

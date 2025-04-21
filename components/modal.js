@@ -4,29 +4,36 @@ import { showActionButtons } from "./action_buttons.js";
 import { renderCard } from "./card.js";
 import { showDealerHandValue, showPlayerHandValue } from "./hand_value.js";
 import { getDealerCardLocation, getPlayerCardLocation } from "./positions.js";
-import { dealCardsToDealer, dealCardsToPlayer, shuffleDeck } from "./scripts/cards.js";
-import { checkGameEnded, endGame, getHandValue } from "./scripts/game.js";
-import { getDealerHand, getPlayerBank, getPlayerHand, resetGameState, setPlayerBank, setPlayerBet } from "./scripts/state.js";
-import { sleep } from "./scripts/util.js";
+import { dealCardsToDealer, dealCardsToPlayer, shuffleDeck } from "../scripts/cards.js";
+import { checkGameEnded, endGame } from "../scripts/game.js";
+import { getDealerHand, getPlayerBank, getPlayerHand, setPlayerBank } from "../scripts/state.js";
+import { sleep } from "../scripts/util.js";
 
 export function setupModal() {
     const playButton = document.getElementById("play-button");
     const playerBank = document.getElementById("start-game-modal-player-bank");
-    const betAmount = /** @type {HTMLInputElement | null} */ (document.getElementById("bet-amount"));
-    if (!playButton || !playerBank || !betAmount) return;
+    const betAmountElem = /** @type {HTMLInputElement | null} */ (document.getElementById("bet-amount"));
+    if (!playButton || !playerBank || !betAmountElem) return;
 
     playerBank.innerHTML = getPlayerBank().toString();
 
     playButton.onclick = async () => {
-        console.log("play");
-        const bet_amount = parseInt(betAmount.value);
-        setPlayerBank(getPlayerBank() - bet_amount);
+        let betValue = parseInt(betAmountElem.value);
+        if (Number.isNaN(betValue) || betValue <= 0 || betValue > getPlayerBank()) {
+            betAmountElem.classList.add("input-error");
+            return;
+        }
+        betAmountElem.classList.remove("input-error");
+
+        const betAmount = parseInt(betAmountElem.value);
+        setPlayerBank(getPlayerBank() - betAmount);
 
         hideModal();
         shuffleDeck();
 
         dealCardsToDealer(2);
         dealCardsToPlayer(2);
+
         const dealer = getDealerHand();
         const player = getPlayerHand();
 
@@ -56,30 +63,18 @@ export function setupModal() {
 
         showActionButtons();
     };
-
-    const update = () => {
-        let value = betAmount.value.split("").filter((c) => ("0" <= c && c <= "9")).join("");
-        value = value.replace(/^0+/, '');
-        if (value.length == 0) value = "1";
-
-        let bet = parseInt(value);
-        const bank = getPlayerBank();
-        if (bet > bank) {
-            bet = bank;
-        }
-        setPlayerBet(bet);
-    };
-    update();
-    betAmount.onkeyup = update;
 }
 
 
 export function showModal() {
     const modal = document.getElementById("start-game-modal-background");
-    if (!modal) return;
+    const playerBank = document.getElementById("start-game-modal-player-bank");
+    if (!modal || !playerBank) return;
 
     modal.style.opacity = "1";
     modal.style.pointerEvents = "auto";
+
+    playerBank.innerHTML = getPlayerBank().toString();
 }
 
 export function hideModal() {

@@ -1,10 +1,10 @@
 // @ts-check
 
-import { moveCard, moveCardBack, renderCard } from "../card.js";
-import { renderPhantomDeck } from "../deck.js";
-import { hideDealerSum, hidePlayerSum, resetDealerSum, resetPlayerSum, showDealerHandValue, showPlayerHandValue } from "../hand_value.js";
-import { showModal } from "../modal.js";
-import { getDealerCardLocation, getPileLocation, getPlayerCardLocation } from "../positions.js";
+import { moveCard, moveCardBack, renderCard } from "../components/card.js";
+import { renderPhantomDeck } from "../components/deck.js";
+import { hideDealerSum, hidePlayerSum, resetDealerSum, resetPlayerSum, showDealerHandValue, showPlayerHandValue } from "../components/hand_value.js";
+import { showModal } from "../components/modal.js";
+import { getDealerCardLocation, getPileLocation, getPlayerCardLocation } from "../components/positions.js";
 import { getDealerHand, getPlayerHand } from "./state.js";
 
 /**
@@ -27,6 +27,7 @@ export function renderDealCardToPlayerHand(hand, card) {
     showPlayerHandValue();
 }
 
+
 /**
  * @param {Card[]} hand
  * @param {Card} card 
@@ -44,6 +45,9 @@ export function renderDealCardToDealerHand(hand, card) {
 }
 
 
+/**
+ * Hide the game UI after game end.
+ */
 export function hideGameUI() {
     const app = document.getElementById("app");
     if (!app) return;
@@ -55,6 +59,11 @@ export function hideGameUI() {
     hideDealerSum();
 }
 
+
+/**
+ * 
+ * Resets the game UI after hiding it using `hideGameUI()`.
+ */
 export function resetGameUI() {
     const app = document.getElementById("app");
     if (!app) return;

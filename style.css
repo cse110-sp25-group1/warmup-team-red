@@ -128,3 +128,38 @@ button:hover {
   pointer-events: none;
   opacity: 0;
 }
+
+input[type="text"] {
+  border: none;
+  outline: none;
+  padding: 4px;
+  min-width: 64px;
+
+  border-bottom: 1px solid gray;
+  transition: all 150ms;
+}
+
+input[type="text"]:focus {
+  border-color: black;
+}
+
+.input-error {
+  border-color: red !important;
+}
+
+#in-game-player-bank-container {
+  position: absolute;
+  display: flex;
+  flex-direction: row;
+  gap: 12px;
+  border: 0.5px solid black;
+  border-radius: 8px;
+  width: 96px;
+  height: 32px;
+  align-items: center;
+  padding-left: 8px;
+}
+
+#in-game-player-bank {
+  margin: 0;
+}

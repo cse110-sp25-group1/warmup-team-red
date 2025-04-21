@@ -1,8 +1,8 @@
 // @ts-check
 
 import { drawDealerSumContainerLocation, drawPlayerSumContainerLocation } from "./positions.js";
-import { getHandValue } from "./scripts/game.js";
-import { getDealerHand, getPlayerHand } from "./scripts/state.js";
+import { getDealerHand, getPlayerHand } from "../scripts/state.js";
+import { getHandValue } from "../scripts/cards.js";
 
 /**
  * Calculates, displays and returns the sum of the player's hand.

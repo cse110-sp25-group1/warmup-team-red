@@ -1,6 +1,6 @@
 // @ts-check
 
-import { actionPlayerHit, actionPlayerStand, getHandValue } from "./scripts/game.js";
+import { actionPlayerHit, actionPlayerStand } from "../scripts/game.js";
 
 export function setupActionButtons() {
     let hitButton = document.getElementById("hit");

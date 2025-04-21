@@ -1,6 +1,6 @@
 // @ts-check
 
-import { constants } from "./index.js";
+import { constants } from "../index.js";
 import { getPileLocation } from "./positions.js";
 
 /**

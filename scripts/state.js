@@ -1,22 +1,12 @@
 // @ts-check
+
 import { createDefaultDeck } from "./cards.js";
+
 
 /**
  * @import {Card} from "./cards.js"
  */
 
-/**
- * Sets up game
- * - Creates a regular deck (0 - 51 unshuffled)
- * - Creates player hand (empty)
- * - Creates dealer hand (empty)
- * - Creates player bank (0) 
- */
-export function resetAllState() {
-    localStorage.clear();
-
-    resetGameState();
-}
 
 /**
  * Sets up *new* game (reset cards, but not money)
@@ -32,9 +22,9 @@ export function resetGameState() {
     localStorage.setItem("deck", deck.toString());
     localStorage.setItem("player_hand", [].toString());
     localStorage.setItem("dealer_hand", [].toString());
-    localStorage.setItem("game_state", 0..toString());
-    localStorage.setItem("player_bet", 0..toString());
+    localStorage.setItem("player_bet", "0");
 }
+
 
 /**
  * Helper function for getting the game deck.
@@ -52,6 +42,7 @@ export function getDeck() {
     }
 }
 
+
 /**
  * Helper function for setting the game deck
  * @param {Card[]} deck
@@ -59,6 +50,7 @@ export function getDeck() {
 export function setDeck(deck) {
     localStorage.setItem("deck", deck.toString());
 }
+
 
 /**
  * Helper function for getting the player hand
@@ -71,10 +63,10 @@ export function getPlayerHand() {
     if (player_hand) {
         return player_hand.split(",").map(c => Number.parseInt(c));
     } else {
-        // console.log(`\"player_hand\" not set in local storage, using and setting default value of []`);
         return [];
     }
 }
+
 
 /**
  * Helper function for setting the player hand
@@ -100,6 +92,7 @@ export function getDealerHand() {
     }
 }
 
+
 /**
  * Helper function for setting the dealer hand
  * @param {Card[]} deck
@@ -107,6 +100,7 @@ export function getDealerHand() {
 export function setDealerHand(deck) {
     localStorage.setItem("dealer_hand", deck.toString());
 }
+
 
 /**
  * Helper function for getting the player bank balance
@@ -126,14 +120,20 @@ export function getPlayerBank() {
     }
 }
 
+
 /**
  * Helper function for getting the player bank balance
  * @param {Number} balance
  */
 export function setPlayerBank(balance) {
-    if (balance)
-        localStorage.setItem("player_bank", balance.toString());
+    localStorage.setItem("player_bank", balance.toString());
+
+    const bank = document.getElementById("in-game-player-bank");
+    if (!bank) return;
+
+    bank.innerHTML = balance.toString();
 }
+
 
 /**
  * Helper function for getting the player bet amount
@@ -153,39 +153,11 @@ export function getPlayerBet() {
     }
 }
 
+
 /**
  * Helper function for getting the player bet amount
  * @param {Number} amount
  */
 export function setPlayerBet(amount) {
     localStorage.setItem("player_bet", amount.toString());
-}
-
-/**
- * Helper function for getting the current game status
- * - 0: Bet Input
- * - 1: Player Turn
- * - 2: Dealer Turn
- * - 3: Results/Play Again?
- * @returns {Number}
- */
-export function getGameState() {
-    const game_state = localStorage.getItem("game_state");
-
-    if (game_state) {
-        return Number.parseInt(game_state);
-    } else {
-        const default_game_state = 0;
-        console.log(`\"game_state\" not set in local storage, using and setting default value of ${default_game_state}`);
-        localStorage.setItem("game_state", default_game_state.toString());
-        return default_game_state;
-    }
-}
-
-/**
- * Helper function for setting the current game status
- * @param {Number} status
- */
-export function setGameState(status) {
-    localStorage.setItem("game_state", status.toString());
 }

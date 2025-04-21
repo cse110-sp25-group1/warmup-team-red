@@ -1,10 +1,10 @@
 // @ts-check
 
-import { constants } from "./index.js";
+import { constants } from "../index.js";
 import { getPileLocation } from "./positions.js";
 
 /**
- * @import {Card} from "./scripts/cards"
+ * @import {Card} from "../scripts/cards"
  */
 
 /**

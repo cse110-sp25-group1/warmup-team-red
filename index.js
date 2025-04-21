@@ -1,20 +1,17 @@
 // @ts-check
 
-import { Constants } from "./constants.js";
-import { renderPhantomDeck } from "./deck.js";
-import { AppState } from "./app_state.js";
+import { Constants } from "./components/constants.js";
+import { renderPhantomDeck } from "./components/deck.js";
 import { getPlayerBank, resetGameState } from "./scripts/state.js";
-import { setupModal } from "./modal.js";
-import { setupActionButtons } from "./action_buttons.js";
+import { setupModal } from "./components/modal.js";
+import { setupActionButtons } from "./components/action_buttons.js";
+import { renderPlayerBank } from "./components/bank.js";
 
 /**
  * @type {Constants}
  */
 export let constants;
-/**
- * @type {AppState}
- */
-export let state;
+
 
 window.addEventListener('DOMContentLoaded', () => {
   let app = document.getElementById("app");
@@ -25,11 +22,11 @@ window.addEventListener('DOMContentLoaded', () => {
   setupActionButtons();
 
   renderPhantomDeck();
+  renderPlayerBank();
 
   resetGameState();
 
   if (getPlayerBank() < 1) {
-    // Display: You ran out of money. You lose!
     alert("you lose!");
   }
 });
