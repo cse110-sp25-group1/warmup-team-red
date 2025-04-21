@@ -1,9 +1,9 @@
 // @ts-check
 
-import { showActionButtons } from "../components/action_buttons.js";
-import { flipCard, renderCard } from "../components/card.js";
-import { showDealerHandValue, showPlayerHandValue } from "../components/hand_value.js";
-import { hideModal } from "../components/modal.js";
+import { showActionButtons } from "../components/action_buttons/action_buttons.js";
+import { flipCard, renderCard } from "../components/card/card.js";
+import { showDealerHandValue, showPlayerHandValue } from "../components/hand_value/hand_value.js";
+import { hideModal } from "../components/modal/modal.js";
 import { getDealerCardLocation, getPlayerCardLocation } from "../components/positions.js";
 import { dealCardsToDealer, dealCardsToPlayer, getHandValue, shuffleDeck } from "./cards.js";
 import { hideGameUI, renderDealCardToDealerHand, renderDealCardToPlayerHand, resetGameUI } from "./renderer.js";

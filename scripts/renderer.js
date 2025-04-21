@@ -1,10 +1,10 @@
 // @ts-check
 
-import { moveCard, moveCardBack, renderCard } from "../components/card.js";
-import { renderPhantomDeck } from "../components/deck.js";
-import { hideDealerSum, hidePlayerSum, resetDealerSum, resetPlayerSum, showDealerHandValue, showPlayerHandValue } from "../components/hand_value.js";
-import { showModal } from "../components/modal.js";
-import { getDealerCardLocation, getPileLocation, getPlayerCardLocation } from "../components/positions.js";
+import { moveCard, moveCardBack, renderCard } from "../components/card/card.js";
+import { renderPhantomDeck } from "../components/deck/deck.js";
+import { hideDealerSum, hidePlayerSum, resetDealerSum, resetPlayerSum, showDealerHandValue, showPlayerHandValue } from "../components/hand_value/hand_value.js";
+import { showModal } from "../components/modal/modal.js";
+import { getDealerCardLocation, getPlayerCardLocation } from "../components/positions.js";
 import { getDealerHand, getPlayerHand } from "./state.js";
 
 

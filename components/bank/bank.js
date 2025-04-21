@@ -1,4 +1,4 @@
-import { constants } from "../index.js";
+import { constants } from "../../index.js";
 
 /**
  * Renders the initial top-left player bank amount.

@@ -1,7 +1,7 @@
 // @ts-check
 
-import { play } from "../scripts/game.js";
-import { DEFAULT_PLAYER_BANK, getPlayerBank, setPlayerBank } from "../scripts/state.js";
+import { play } from "../../scripts/game.js";
+import { DEFAULT_PLAYER_BANK, getPlayerBank, setPlayerBank } from "../../scripts/state.js";
 
 
 export function setupModal() {

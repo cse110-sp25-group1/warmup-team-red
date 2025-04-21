@@ -1,8 +1,8 @@
 // @ts-check
 
-import { drawDealerSumContainerLocation, drawPlayerSumContainerLocation } from "./positions.js";
-import { getDealerHand, getPlayerHand } from "../scripts/state.js";
-import { getHandValue } from "../scripts/cards.js";
+import { drawDealerSumContainerLocation, drawPlayerSumContainerLocation } from "../positions.js";
+import { getDealerHand, getPlayerHand } from "../../scripts/state.js";
+import { getHandValue } from "../../scripts/cards.js";
 
 
 /**
