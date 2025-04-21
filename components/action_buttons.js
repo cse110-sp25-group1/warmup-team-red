@@ -2,6 +2,7 @@
 
 import { actionPlayerHit, actionPlayerStand } from "../scripts/game.js";
 
+
 export function setupActionButtons() {
     let hitButton = document.getElementById("hit");
     let standButton = document.getElementById("stand");
@@ -10,6 +11,7 @@ export function setupActionButtons() {
     hitButton.onclick = actionPlayerHit;
     standButton.onclick = actionPlayerStand;
 }
+
 
 export function showActionButtons() {
     let playingOptions = document.getElementById("playing-options");

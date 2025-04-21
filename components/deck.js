@@ -3,6 +3,7 @@
 import { constants } from "../index.js";
 import { getPileLocation } from "./positions.js";
 
+
 /**
  * Render the HTML of the phantom deck.
  * @param {number} initialTop

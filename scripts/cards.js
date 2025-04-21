@@ -1,9 +1,11 @@
 // @ts-check
 import { getDealerHand, getDeck, getPlayerHand, setDealerHand, setDeck, setPlayerHand } from "./state.js";
 
+
 /**
  * @typedef {number} Card
  */
+
 
 /**
  * Creates a regular deck (0 - 51 unshuffled)
@@ -18,6 +20,7 @@ export function createDefaultDeck() {
 
     return deck;
 }
+
 
 /**
  * Takes a card from the deck and deals it to the player hand
@@ -47,6 +50,7 @@ export function dealCardsToPlayer(amount = 1) {
     return dealt;
 }
 
+
 /**
  * Takes a card from the deck and deals it to the dealer hand
  * @param {Number} amount Number of cards to deal (default 1)
@@ -75,6 +79,7 @@ export function dealCardsToDealer(amount = 1) {
     return dealt;
 }
 
+
 /**
  * Shuffles the deck
  */
@@ -89,6 +94,7 @@ export function shuffleDeck() {
     setDeck(deck);
 }
 
+
 /**
  * Get the rank of a card
  * @param {Card} card 
@@ -98,6 +104,7 @@ export function getCardRank(card) {
     return card % 13;
 }
 
+
 /**
  * Get the suit of a card
  * @param {Card} card
@@ -106,6 +113,7 @@ export function getCardRank(card) {
 export function getCardSuit(card) {
     return Math.floor(card / 13);
 }
+
 
 /**
  * Get the value of a card
@@ -125,6 +133,7 @@ export function getCardValue(card) {
         throw new Error(`Invalid rank: ${rank}`);
     }
 }
+
 
 /**
  * Get the name of a card
@@ -169,6 +178,7 @@ export function getHandValue(hand) {
 
     return count;
 }
+
 
 /**
  * Checks if a hand is a blackjack (Ace + 10 value card)

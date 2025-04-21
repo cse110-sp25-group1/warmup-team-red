@@ -64,6 +64,7 @@ export async function play() {
     showActionButtons();
 }
 
+
 /**
  * Performs the actions necessary when the player hits
  */

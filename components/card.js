@@ -3,9 +3,11 @@
 import { constants } from "../index.js";
 import { getPileLocation } from "./positions.js";
 
+
 /**
  * @import {Card} from "../scripts/cards"
  */
+
 
 /**
  * @param {Card} card
@@ -39,6 +41,7 @@ function getCardHtml(card, initialTop, initialLeft) {
     </div>
   `;
 }
+
 
 /**
  * Render a card initially, complete with animations.
@@ -81,8 +84,8 @@ export function renderCard(card, top, left, flip = true, rotate = true) {
   });
 }
 
+
 /**
- *
  * @param {Card} card
  * @param {number} top
  * @param {number} left
@@ -98,8 +101,8 @@ export function moveCard(card, top, left, rotate = true) {
   if (rotate) cardElem.style.transform = `rotateZ(${Math.random() * 10 - 5}deg)`;
 }
 
+
 /**
- *
  * @param {Card} card
  */
 export function moveCardBack(card) {
@@ -116,8 +119,8 @@ export function moveCardBack(card) {
   innerElem.classList.add("flip-card-inner-flipped");
 }
 
+
 /**
- * 
  * @param {Card} card
  */
 export function flipCard(card) {

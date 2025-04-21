@@ -4,6 +4,7 @@ import { drawDealerSumContainerLocation, drawPlayerSumContainerLocation } from "
 import { getDealerHand, getPlayerHand } from "../scripts/state.js";
 import { getHandValue } from "../scripts/cards.js";
 
+
 /**
  * Calculates, displays and returns the sum of the player's hand.
  * 
@@ -36,6 +37,7 @@ export const hidePlayerSum = () => {
     playerHandValue.style.opacity = "0";
 }
 
+
 /**
  * Hides the sum of the player's hand.
  */
@@ -46,6 +48,7 @@ export const resetPlayerSum = () => {
     playerHandValue.style.top = "";
     playerHandValue.style.left = "";
 }
+
 
 /**
  * Calculates, displays and returns the sum of the dealer's hand.
@@ -70,6 +73,7 @@ export const showDealerHandValue = (revealFirst, initial = false) => {
     dealerHandValue.innerHTML = `${handValue}`;
 }
 
+
 /**
  * Hides the sum of the dealer's hand.
  */
@@ -78,6 +82,7 @@ export const hideDealerSum = () => {
     if (!dealerHandValue) return;
     dealerHandValue.style.opacity = "0";
 }
+
 
 /**
  * Hides the sum of the dealer's hand.

@@ -7,9 +7,11 @@ import { showModal } from "../components/modal.js";
 import { getDealerCardLocation, getPileLocation, getPlayerCardLocation } from "../components/positions.js";
 import { getDealerHand, getPlayerHand } from "./state.js";
 
+
 /**
  * @import {Card} from "./cards.js"
  */
+
 
 /**
  * @param {Card[]} hand

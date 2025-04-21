@@ -17,7 +17,6 @@ export const DEFAULT_PLAYER_BANK = 100;
  * - Creates player hand (empty)
  * - Creates dealer hand (empty)
  * - Sets player bet to 0
- * - Sets game state integer to 0
  */
 export function resetGameState() {
     const deck = createDefaultDeck();

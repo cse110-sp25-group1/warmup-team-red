@@ -2,6 +2,7 @@
 
 import { constants } from "../index.js";
 
+
 /**
  * Get the `top` and `left` coordinates of the card pile.
  * 
@@ -10,6 +11,7 @@ import { constants } from "../index.js";
 export function getPileLocation() {
     return [constants.viewHeight / 2 - constants.cardHeight / 2, constants.padding];
 }
+
 
 /**
  * Get the `top` and `left` coordinates of a dealer's card.
@@ -27,6 +29,7 @@ export function getDealerCardLocation(index, outOf) {
     ];
 }
 
+
 /**
  * Get the `top` and `left` coordinates of a player's card.
  * `index` should be from 0 to `outOf - 1` (inclusive).
@@ -43,6 +46,7 @@ export function getPlayerCardLocation(index, outOf) {
     ];
 }
 
+
 /**
  * Calculates the dealer's card position for a given card index and total number of cards.
  *
@@ -56,6 +60,7 @@ export const drawDealerSumContainerLocation = (totalCards) => {
         constants.viewWidth / 2 + totalWidth / 2 + constants.handValueContainerSize
     ];
 };
+
 
 /**
  * Calculates the player's card position for a given card index and total number of cards.
