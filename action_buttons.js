@@ -1,13 +1,6 @@
 // @ts-check
 
-import { moveCard, renderCard } from "./card.js";
-import { showDealerHandValue, showPlayerHandValue } from "./hand_value.js";
-import { getDealerCardLocation, getPlayerCardLocation } from "./positions.js";
-import { dealCardsToDealer, dealCardsToPlayer } from "./scripts/cards.js";
 import { actionPlayerHit, actionPlayerStand, getHandValue } from "./scripts/game.js";
-import { getDealerHand, getPlayerHand } from "./scripts/state.js";
-import { sleep } from "./scripts/util.js";
-
 
 export function setupActionButtons() {
     let hitButton = document.getElementById("hit");

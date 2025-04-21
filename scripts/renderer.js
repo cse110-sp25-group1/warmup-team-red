@@ -8,14 +8,6 @@ import { getDealerCardLocation, getPlayerCardLocation } from "../positions.js";
  */
 
 /**
- * @param {Card} card 
- * @returns {string} Card image URL
- */
-export function getCardURL(card) {
-    return `assets/cards/${card}.svg`;
-}
-
-/**
  * @param {Card[]} hand
  * @param {Card} card 
  */
