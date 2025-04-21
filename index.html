@@ -14,68 +14,65 @@
     </script>
   </head>
   <body>
-    <div id="app">
-      <div id="start-game-modal-background">
-        <div id="start-game-modal">
-          <h2>Welcome!</h2>
-          <p>
-            You got <span id="start-game-modal-player-amount"></span> monies.
-          </p>
-          <p>How much would you like to bet?</p>
-          <input id="bet-amount" type="text" />
+    <div id="app"></div>
 
-          <div style="height: 24px"></div>
+    <p id="dealer-hand-value" class="hand-value-container"></p>
+    <p id="player-hand-value" class="hand-value-container"></p>
 
-          <div class="button-container" style="width: 6rem; height: 3rem">
-            <button id="play-button">Play</button>
-            <div class="button-background"></div>
-          </div>
-        </div>
+    <div id="playing-options">
+      <div class="button-container">
+        <button id="hit">
+          <span
+            style="
+              display: flex;
+              width: 50%;
+              margin: 0 auto;
+              justify-content: space-between;
+              align-items: center;
+              gap: 12px;
+              font-size: 1rem;
+            "
+          >
+            <img alt="Hit icon" src="assets/hit.svg" />
+            Hit
+          </span>
+        </button>
+        <div class="button-background"></div>
       </div>
-
-      <p id="dealer-hand-value" class="hand-value-container"></p>
-      <p id="player-hand-value" class="hand-value-container"></p>
-
-      <div id="playing-options">
-        <div class="button-container">
-          <button id="hit">
-            <span
-              style="
-                display: flex;
-                width: 50%;
-                margin: 0 auto;
-                justify-content: space-between;
-                align-items: center;
-                gap: 12px;
-                font-size: 1rem;
-              "
-            >
-              <img alt="Hit icon" src="assets/hit.svg" />
-              Hit
-            </span>
-          </button>
-          <div class="button-background"></div>
-        </div>
-        <div class="button-container">
-          <button id="stand">
-            <span
-              style="
-                display: flex;
-                width: 50%;
-                margin: 0 auto;
-                justify-content: space-between;
-                align-items: center;
-                gap: 12px;
-                font-size: 1rem;
-              "
-            >
-              <img alt="Stand icon" src="assets/stand.svg" />
-              Stand
-            </span>
-          </button>
-          <div class="button-background"></div>
-        </div>
+      <div class="button-container">
+        <button id="stand">
+          <span
+            style="
+              display: flex;
+              width: 50%;
+              margin: 0 auto;
+              justify-content: space-between;
+              align-items: center;
+              gap: 12px;
+              font-size: 1rem;
+            "
+          >
+            <img alt="Stand icon" src="assets/stand.svg" />
+            Stand
+          </span>
+        </button>
+        <div class="button-background"></div>
       </div>
     </div>
+    
+    <div id="start-game-modal-background">
+      <div id="start-game-modal">
+        <h2>Welcome!</h2>
+        <p>You got <span id="start-game-modal-player-amount"></span> monies.</p>
+        <p>How much would you like to bet?</p>
+        <input id="bet-amount" type="text" />
+
+        <div style="height: 24px"></div>
+
+        <div class="button-container" style="width: 6rem; height: 3rem">
+          <button id="play-button">Play</button>
+          <div class="button-background"></div>
+        </div>
+      </div>
   </body>
 </html>

@@ -5,8 +5,8 @@ import { renderCard } from "./card.js";
 import { showDealerHandValue, showPlayerHandValue } from "./hand_value.js";
 import { getDealerCardLocation, getPlayerCardLocation } from "./positions.js";
 import { dealCardsToDealer, dealCardsToPlayer, shuffleDeck } from "./scripts/cards.js";
-import { getHandValue } from "./scripts/game.js";
-import { getDealerHand, getPlayerBank, getPlayerHand, setPlayerBank, setPlayerBet } from "./scripts/state.js";
+import { checkGameEnded, endGame, getHandValue } from "./scripts/game.js";
+import { getDealerHand, getPlayerBank, getPlayerHand, resetGameState, setPlayerBank, setPlayerBet } from "./scripts/state.js";
 import { sleep } from "./scripts/util.js";
 
 export function setupModal() {
@@ -34,6 +34,11 @@ export function setupModal() {
 
         showDealerHandValue(false, true);
 
+        {
+            let ended = checkGameEnded();
+            if (ended != null) endGame(ended);
+        }
+
         for (let i = 0; i < player.length; i++) {
             renderCard(player[i], ...getPlayerCardLocation(i, player.length));
             await sleep(750);
@@ -41,8 +46,10 @@ export function setupModal() {
 
         showPlayerHandValue(true);
 
-        // TODO: check if dealer is blackjack or lost
-        // TODO: check if player is blackjack or lost
+        {
+            let ended = checkGameEnded();
+            if (ended != null) endGame(ended);
+        }
 
         showActionButtons();
     };
@@ -64,7 +71,7 @@ export function setupModal() {
 }
 
 
-function showModal() {
+export function showModal() {
     const modal = document.getElementById("start-game-modal-background");
     if (!modal) return;
 
@@ -72,7 +79,7 @@ function showModal() {
     modal.style.pointerEvents = "auto";
 }
 
-function hideModal() {
+export function hideModal() {
     alert("hiding")
     const modal = document.getElementById("start-game-modal-background");
     if (!modal) return;

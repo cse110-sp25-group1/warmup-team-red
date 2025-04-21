@@ -97,3 +97,15 @@ export function moveCard(card, top, left, rotate = true) {
   cardElem.style.left = `${left}px`;
   if (rotate) cardElem.style.transform = `rotateZ(${Math.random() * 10 - 5}deg)`;
 }
+
+/**
+ * 
+ * @param {Card} card
+ */
+export function flipCard(card) {
+  let innerId = `inner-${card}`;
+  let inner = document.getElementById(innerId);
+  if (!inner) return;
+
+  inner.classList.toggle("flip-card-inner-flipped");
+}
