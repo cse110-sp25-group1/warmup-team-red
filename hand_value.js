@@ -32,15 +32,17 @@ export const showPlayerHandValue = (initial = false) => {
 export const hidePlayerSum = () => {
     const playerHandValue = document.getElementById("player-hand-value");
     if (!playerHandValue) return;
+
     playerHandValue.style.opacity = "0";
 }
 
 /**
- * Resets the sum of the player's hand.
+ * Hides the sum of the player's hand.
  */
 export const resetPlayerSum = () => {
     const playerHandValue = document.getElementById("player-hand-value");
     if (!playerHandValue) return;
+
     playerHandValue.style.top = "";
     playerHandValue.style.left = "";
 }
@@ -48,6 +50,7 @@ export const resetPlayerSum = () => {
 /**
  * Calculates, displays and returns the sum of the dealer's hand.
  * 
+ * @param {boolean} revealFirst
  * @param {boolean} initial
  */
 export const showDealerHandValue = (revealFirst, initial = false) => {
@@ -67,7 +70,6 @@ export const showDealerHandValue = (revealFirst, initial = false) => {
     dealerHandValue.innerHTML = `${handValue}`;
 }
 
-
 /**
  * Hides the sum of the dealer's hand.
  */
@@ -78,11 +80,12 @@ export const hideDealerSum = () => {
 }
 
 /**
- * Resets the sum of the dealer's hand.
+ * Hides the sum of the dealer's hand.
  */
 export const resetDealerSum = () => {
     const dealerHandValue = document.getElementById("dealer-hand-value");
     if (!dealerHandValue) return;
+
     dealerHandValue.style.top = "";
     dealerHandValue.style.left = "";
 }

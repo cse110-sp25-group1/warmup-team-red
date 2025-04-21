@@ -11,8 +11,11 @@ import { sleep } from "./scripts/util.js";
 
 export function setupModal() {
     const playButton = document.getElementById("play-button");
+    const playerBank = document.getElementById("start-game-modal-player-bank");
     const betAmount = /** @type {HTMLInputElement | null} */ (document.getElementById("bet-amount"));
-    if (!playButton || !betAmount) return;
+    if (!playButton || !playerBank || !betAmount) return;
+
+    playerBank.innerHTML = getPlayerBank().toString();
 
     playButton.onclick = async () => {
         console.log("play");
@@ -36,7 +39,7 @@ export function setupModal() {
 
         {
             let ended = checkGameEnded();
-            if (ended != null) endGame(ended);
+            if (ended != null) { endGame(ended); return; }
         }
 
         for (let i = 0; i < player.length; i++) {
@@ -48,7 +51,7 @@ export function setupModal() {
 
         {
             let ended = checkGameEnded();
-            if (ended != null) endGame(ended);
+            if (ended != null) { endGame(ended); return; }
         }
 
         showActionButtons();
@@ -80,7 +83,6 @@ export function showModal() {
 }
 
 export function hideModal() {
-    alert("hiding")
     const modal = document.getElementById("start-game-modal-background");
     if (!modal) return;
 

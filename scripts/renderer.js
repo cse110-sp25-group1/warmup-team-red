@@ -1,9 +1,11 @@
 // @ts-check
 
-import { moveCard, renderCard } from "../card.js";
-import { showDealerHandValue, showPlayerHandValue } from "../hand_value.js";
+import { moveCard, moveCardBack, renderCard } from "../card.js";
+import { renderPhantomDeck } from "../deck.js";
+import { hideDealerSum, hidePlayerSum, resetDealerSum, resetPlayerSum, showDealerHandValue, showPlayerHandValue } from "../hand_value.js";
 import { showModal } from "../modal.js";
-import { getDealerCardLocation, getPlayerCardLocation } from "../positions.js";
+import { getDealerCardLocation, getPileLocation, getPlayerCardLocation } from "../positions.js";
+import { getDealerHand, getPlayerHand } from "./state.js";
 
 /**
  * @import {Card} from "./cards.js"
@@ -42,11 +44,24 @@ export function renderDealCardToDealerHand(hand, card) {
 }
 
 
+export function hideGameUI() {
+    const app = document.getElementById("app");
+    if (!app) return;
+
+    getDealerHand().forEach(moveCardBack);
+    getPlayerHand().forEach(moveCardBack);
+
+    hidePlayerSum();
+    hideDealerSum();
+}
+
 export function resetGameUI() {
     const app = document.getElementById("app");
     if (!app) return;
 
     app.innerHTML = "";
-
+    resetPlayerSum();
+    resetDealerSum();
+    renderPhantomDeck();
     showModal();
 }

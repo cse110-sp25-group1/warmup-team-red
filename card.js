@@ -91,11 +91,29 @@ export function renderCard(card, top, left, flip = true, rotate = true) {
 export function moveCard(card, top, left, rotate = true) {
   let cardId = `card-${card}`;
   let cardElem = document.getElementById(cardId);
-  if (cardElem == null) return;
+  if (!cardElem) return;
 
   cardElem.style.top = `${top}px`;
   cardElem.style.left = `${left}px`;
   if (rotate) cardElem.style.transform = `rotateZ(${Math.random() * 10 - 5}deg)`;
+}
+
+/**
+ *
+ * @param {Card} card
+ */
+export function moveCardBack(card) {
+  const cardId = `card-${card}`;
+  const innerId = `inner-${card}`;
+  const cardElem = document.getElementById(cardId);
+  const innerElem = document.getElementById(innerId);
+  if (!cardElem || !innerElem) return;
+
+  const [top, left] = getPileLocation();
+  cardElem.style.top = `${top}px`;
+  cardElem.style.left = `${left}px`;
+  cardElem.style.transform = `rotateZ(0deg)`;
+  innerElem.classList.add("flip-card-inner-flipped");
 }
 
 /**
