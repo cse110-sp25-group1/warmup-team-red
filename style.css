@@ -109,3 +109,17 @@ button:hover {
   opacity: 0;
   pointer-events: none;
 }
+
+.hand-value-container {
+  position: absolute;
+  width: 48px;
+  height: 48px;
+  background-color: #e0e0db;
+  border-radius: 1em;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: all 0.5s ease-in-out;
+  pointer-events: none;
+  opacity: 0;
+}

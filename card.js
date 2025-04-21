@@ -5,7 +5,7 @@ import { getPileLocation } from "./positions.js";
 import { getCardURL } from "./scripts/renderer.js";
 
 /**
- * @import {Card} from "./scripts/cards.js"
+ * @import {Card} from "./scripts/cards"
  */
 
 /**
@@ -24,7 +24,7 @@ function getCardHtml(card, initialTop, initialLeft) {
       <div class="flip-card-inner flip-card-inner-flipped" id="inner-${card}">
         <div class="flip-card-front">
           <img
-            src="${getCardURL(card)}"
+            src="assets/cards/${card}.svg"
             alt="Card"
             style="width: ${constants.cardWidth}px; height: ${constants.cardHeight}px"
           />

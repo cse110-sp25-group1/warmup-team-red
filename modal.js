@@ -2,6 +2,7 @@
 
 import { showActionButtons } from "./action_buttons.js";
 import { renderCard } from "./card.js";
+import { showDealerHandValue, showPlayerHandValue } from "./hand_value.js";
 import { getDealerCardLocation, getPlayerCardLocation } from "./positions.js";
 import { dealCardsToDealer, dealCardsToPlayer, shuffleDeck } from "./scripts/cards.js";
 import { getDealerHand, getPlayerBank, getPlayerHand, setPlayerBank, setPlayerBet } from "./scripts/state.js";
@@ -29,10 +30,15 @@ export function setupModal() {
             renderCard(dealer[i], ...getDealerCardLocation(i, dealer.length), i != 0);
             await sleep(750);
         }
+
+        showDealerHandValue(true);
+
         for (let i = 0; i < player.length; i++) {
             renderCard(player[i], ...getPlayerCardLocation(i, player.length));
             await sleep(750);
         }
+
+        showPlayerHandValue(true);
 
         // TODO: check if dealer is blackjack or lost
         // TODO: check if player is blackjack or lost
