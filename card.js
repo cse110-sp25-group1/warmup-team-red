@@ -2,11 +2,11 @@
 
 import { constants } from "./index.js";
 import { getPileLocation } from "./positions.js";
+import { getCardURL } from "./scripts/renderer.js";
 
 /**
  * @import {Card} from "./scripts/cards"
  */
-
 
 /**
  * @param {Card} card
