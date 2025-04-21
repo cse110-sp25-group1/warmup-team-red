@@ -1,11 +1,96 @@
 <!DOCTYPE html>
 <html>
-<head>
-    <title>Team Red</title>
-</head>
-<body></body>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link rel="stylesheet" href="style.css" />
+    <title>The Aces</title>
+    <script src="index.js" type="module"></script>
+    <script>
+      // only browsers supporting `type="module"` for `<script>`s has `noModule`
+      if (!("noModule" in document.createElement("script"))) {
+        alert("please get a newer browser 😭🙏");
+      }
+    </script>
+  </head>
+  <body>
+    <div id="app"></div>
 
-<script src="/scripts/index.js" type="module"></script>
-<script src="/scripts/state.js" type="module"></script>
-<script src="/scripts/cards.js" type="module"></script>
+    <p id="dealer-hand-value" class="hand-value-container"></p>
+    <p id="player-hand-value" class="hand-value-container"></p>
+
+    <div id="in-game-player-bank-container">
+      <img
+        width="18"
+        height="18"
+        alt="Dollar sign icon"
+        src="assets/icons/dollar.svg"
+      />
+      <p id="in-game-player-bank">Amount</p>
+    </div>
+
+    <div id="playing-options">
+      <div class="button-container">
+        <button id="hit">
+          <span
+            style="
+              display: flex;
+              width: 50%;
+              margin: 0 auto;
+              justify-content: space-between;
+              align-items: center;
+              gap: 12px;
+              font-size: 1rem;
+            "
+          >
+            <img alt="Hit icon" src="assets/icons/hit.svg" />
+            Hit
+          </span>
+        </button>
+        <div class="button-background"></div>
+      </div>
+      <div class="button-container">
+        <button id="stand">
+          <span
+            style="
+              display: flex;
+              width: 50%;
+              margin: 0 auto;
+              justify-content: space-between;
+              align-items: center;
+              gap: 12px;
+              font-size: 1rem;
+            "
+          >
+            <img alt="Stand icon" src="assets/icons/stand.svg" />
+            Stand
+          </span>
+        </button>
+        <div class="button-background"></div>
+      </div>
+    </div>
+
+    <div id="start-game-modal-background">
+      <div id="start-game-modal">
+        <h2>Welcome!</h2>
+        <p>You got <span id="start-game-modal-player-bank"></span> monies.</p>
+        <p>How much would you like to bet?</p>
+        <input id="bet-amount" type="text" />
+
+        <div style="height: 36px"></div>
+
+        <div style="display: flex; gap: 16px">
+          <div class="button-container" style="width: 6rem; height: 3rem">
+            <button id="play-button">Play</button>
+            <div class="button-background"></div>
+          </div>
+
+          <div class="button-container" style="width: 6rem; height: 3rem">
+            <button id="reset-button">Reset</button>
+            <div class="button-background"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </body>
 </html>

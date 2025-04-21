@@ -1,155 +1,165 @@
 // @ts-check
-import { getCardRank, getCardValue } from "./cards.js";
-import { getGameState, getPlayerBank, setGameState } from "./state.js";
+
+import { showActionButtons } from "../components/action_buttons.js";
+import { flipCard, renderCard } from "../components/card.js";
+import { showDealerHandValue, showPlayerHandValue } from "../components/hand_value.js";
+import { hideModal } from "../components/modal.js";
+import { getDealerCardLocation, getPlayerCardLocation } from "../components/positions.js";
+import { dealCardsToDealer, dealCardsToPlayer, getHandValue, shuffleDeck } from "./cards.js";
+import { hideGameUI, renderDealCardToDealerHand, renderDealCardToPlayerHand, resetGameUI } from "./renderer.js";
+import { getDealerHand, getPlayerBank, getPlayerHand, resetGameState, setPlayerBank } from "./state.js";
+import { sleep } from "./util.js";
+
 
 /**
- * Calculate the blackjack value of a hand
- * @param {Number[]} hand 
- * @returns {Number}
+ * Starts the game
  */
-export function getHandValue(hand) {
-    let count = 0;
-    let ace_count = 0;
+export async function play() {
+    const betAmountElem = /** @type {HTMLInputElement | null} */ (document.getElementById("bet-amount"));
+    if (!betAmountElem) return;
 
-    for (let i = 0; i < hand.length; i++) {
-        const card = hand[i];
-        const rank = getCardRank(card);
+    let betValue = parseInt(betAmountElem.value);
+    if (!/^\d+$/.test(betAmountElem.value) || Number.isNaN(betValue) || betValue <= 0 || betValue > getPlayerBank()) {
+        betAmountElem.classList.add("input-error");
+        return;
+    }
+    betAmountElem.classList.remove("input-error");
 
-        count += getCardValue(card);
-        if (rank === 1) {
-            ace_count += 1;
-        }
+    const betAmount = parseInt(betAmountElem.value);
+    setPlayerBank(getPlayerBank() - betAmount);
+
+    hideModal();
+    shuffleDeck();
+
+    dealCardsToDealer(2);
+    dealCardsToPlayer(2);
+
+    const dealer = getDealerHand();
+    const player = getPlayerHand();
+
+    for (let i = 0; i < dealer.length; i++) {
+        renderCard(dealer[i], ...getDealerCardLocation(i, dealer.length), i != 0);
+        await sleep(750);
     }
 
-    // For each ace that keeps us above 21, treat as a 1 instead of 11
-    while (count > 21 && ace_count > 0) {
-        count -= 10;
-        ace_count -= 1;
+    showDealerHandValue(false, true);
+
+    {
+        let ended = checkGameEnded();
+        if (ended != null) { endGame(ended); return; }
     }
 
-    return count;
-}
-
-/**
- * Checks if a hand is a blackjack (Ace + 10 value card)
- * @param {Number[]} hand 
- * @returns {boolean}
- */
-export function handIsBlackjack(hand) {
-    return (hand.length === 2) && (getHandValue(hand) === 21);
-}
-
-/**
- * Asks the player for the bet amount
- * @returns {Number}
- */
-export function promptBetAmount() {
-    return 0;
-}
-
-/**
- * Plan, use the game status number to decide what to do each turn. After each step in the game
- * is processesed call this blackjack_step function again
- */
-export function blackjack_step() {
-    switch (getGameState()) {
-        // Bet Input
-        case 0: {
-
-            setGameState(1);
-            break;
-        }
-        // Player Turn
-        case 1: {
-            setGameState(2);
-            break;
-        }
-        // Dealer Turn
-        case 2: {
-            setGameState(3);
-            break;
-        }
-        // Results/Play Again?
-        case 3: {
-            const play_again = getPlayerBank() > 0;
-            if (play_again) {
-                setGameState(0);
-            }
-            break;
-        }
-        // Unknown
-        default: {
-            console.log("Unknown game status. Resetting game status to 0.");
-            setGameState(0);
-            break;
-        }
+    for (let i = 0; i < player.length; i++) {
+        renderCard(player[i], ...getPlayerCardLocation(i, player.length));
+        await sleep(750);
     }
+
+    showPlayerHandValue(true);
+
+    {
+        let ended = checkGameEnded();
+        if (ended != null) { endGame(ended); return; }
+    }
+
+    showActionButtons();
 }
 
-// function blackjack() {
-//     resetGameState();
 
-//     let bet_amount = 0;
+/**
+ * Performs the actions necessary when the player hits
+ */
+export async function actionPlayerHit() {
+    const cards = getPlayerHand();
+    const dealtCard = dealCardsToPlayer()[0];
 
-//     if (getPlayerBank() >= 1) {
-//         // Input: How much would you like to bet?
-//         bet_amount = promptBetAmount();
-//         setPlayerBank(getPlayerBank() - bet_amount);
-//     } else {
-//         // Display: You ran out of money. You lose!
-//     }
+    renderDealCardToPlayerHand(cards, dealtCard);
 
-//     dealCardsToPlayer(2);
-//     dealCardsToDealer(2);
+    await sleep(750);
+    let ended = checkGameEnded();
+    if (ended != null) endGame(ended);
 
-//     while (getHandValue(getPlayerHand()) < 21) {
-//         // Input: Hit or Stand?
-//         const hit = true;
+}
 
-//         if (hit) {
-//             dealCardsToPlayer();
-//         }
-//     }
 
-//     // Player bust
-//     if (getHandValue(getPlayerHand()) > 21) {
-//         // Display: You lose!
-//         // Input: Would you like to play again?
-//         // If yes: blackjack();
-//     }
+/**
+ * Performs the actions necessary when the player stands
+ */
+export async function actionPlayerStand() {
+    let dealer_hand = getDealerHand();
 
-//     while (getHandValue(getDealerHand()) <= 16) {
-//         dealCardsToDealer();
-//     }
+    while (getHandValue(dealer_hand) <= 16) {
+        let dealt_card = dealCardsToDealer()[0];
 
-//     // Dealer bust
-//     if (getHandValue(getDealerHand()) > 21) {
-//         // Display: You win!
-//         setPlayerBank(getPlayerBank() + (2 * bet_amount));
-//         // Input: Would you like to play again?
-//         // If yes: blackjack();
-//     }
+        renderDealCardToDealerHand(dealer_hand, dealt_card);
+        await sleep(750);
 
-//     const player_hand = getPlayerHand();
-//     const player_hand_value = getHandValue(player_hand);
-//     const player_blackjack = handIsBlackjack(player_hand);
+        dealer_hand = getDealerHand();
 
-//     const dealer_hand = getDealerHand();
-//     const dealer_hand_value = getHandValue(dealer_hand);
-//     const dealer_blackjack = handIsBlackjack(dealer_hand);
+        let ended = checkGameEnded();
+        if (ended != null) { endGame(ended); return; }
+    }
 
-//     if (player_hand_value === dealer_hand_value) {
-//         // Display: Push!
-//         // Input: Would you like to play again?
-//         // If yes: blackjack();
-//     } else if (player_hand_value > dealer_hand_value) {
-//         // Display: You win!
-//         setPlayerBank(getPlayerBank() + (2 * bet_amount));
-//         // Input: Would you like to play again?
-//         // If yes: blackjack();
-//     } else {
-//         // Display: You lose!
-//         // Input: Would you like to play again?
-//         // If yes: blackjack();
-//     }
-// }
+    let ended = checkGameEnded(true);
+    // assert(ended != null);
+    if (ended != null) endGame(ended);
+}
+
+
+/**
+ * @param {boolean} isFinished
+ * @returns {"win" | "lose" | "draw" | null}
+ */
+export function checkGameEnded(isFinished = false) {
+    const player = getPlayerHand();
+    const dealer = getDealerHand();
+
+    const playerHand = getHandValue(player);
+    const dealerHand = getHandValue(dealer);
+
+    if (playerHand == 21) return "win";
+    if (dealerHand == 21) return "lose";
+
+    if (playerHand > 21) return "lose";
+    if (dealerHand > 21) return "win";
+
+    if (isFinished) {
+        if (playerHand == dealerHand) return "draw";
+        else if (playerHand > dealerHand) return "win";
+        else return "lose";
+    }
+
+    return null;
+}
+
+
+/**
+ * @param {"win" | "lose" | "draw"} playerWin 
+ */
+export async function endGame(playerWin) {
+    const betAmountElem = /** @type {HTMLInputElement | null} */ (document.getElementById("bet-amount"));
+    if (!betAmountElem) return;
+
+    const betAmount = parseInt(betAmountElem.value);
+
+    flipCard(getDealerHand()[0]);
+    showDealerHandValue(true);
+
+    if (playerWin == "win") {
+        alert("you won!");
+        setPlayerBank(getPlayerBank() + 2 * betAmount);
+    } else if (playerWin == "lose") {
+        alert("you lost!");
+    } else if (playerWin == "draw") {
+        alert("draw!");
+        setPlayerBank(getPlayerBank() + betAmount);
+    }
+
+    await sleep(1500);
+
+    hideGameUI();
+
+    await sleep(1000);
+
+    resetGameState();
+    resetGameUI();
+}
