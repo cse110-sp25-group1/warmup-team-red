@@ -22,7 +22,7 @@ function getPhantomDeckHtml(initialTop, initialLeft) {
           transition: opacity 1s; 
         "
       >
-        <img src="https://i.imgur.com/NvVlPXm.png" alt="Team logo" style="width: 180px;" />
+        <img src="assets/cards/card_back.png" alt="Team logo" style="width: 180px;" />
         <p>Black Jack<br/>by the Aces</p>
       </div>
     `;

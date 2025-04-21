@@ -32,7 +32,7 @@ function getCardHtml(card, initialTop, initialLeft) {
           class="flip-card-back"
           style="display: flex; flex-direction: column; justify-content: center; align-items: center; width: ${constants.cardWidth}px; height: ${constants.cardHeight}px; border-radius: ${29.944447 / 360 * constants.cardWidth}px"
         >
-          <img src="https://i.imgur.com/NvVlPXm.png" alt="Team logo" style="width: ${constants.cardWidth * 0.75}px" />
+          <img src="assets/cards/card_back.png" alt="Team logo" style="width: ${constants.cardWidth * 0.75}px" />
           <p>Black Jack<br/>by the Aces</p>
         </div>
       </div>
