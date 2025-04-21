@@ -41,23 +41,3 @@ export function renderPhantomDeck() {
   phantomDeck.setHTMLUnsafe(getPhantomDeckHtml(top, left))
   app.appendChild(phantomDeck);
 }
-
-/**
- * Hide the phantom deck.
- */
-export function hidePhantomDeck() {
-  const phantomDeck = document.getElementById("phantom-deck");
-  if (!phantomDeck) return;
-
-  phantomDeck.style.opacity = "0";
-}
-
-/**
- * Show the phantom deck.
- */
-export function showPhantomDeck() {
-  const phantomDeck = document.getElementById("phantom-deck");
-  if (!phantomDeck) return;
-
-  phantomDeck.style.opacity = "1";
-}
