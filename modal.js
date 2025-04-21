@@ -5,7 +5,7 @@ import { renderCard } from "./card.js";
 import { getDealerCardLocation, getPlayerCardLocation } from "./positions.js";
 import { dealCardsToDealer, dealCardsToPlayer, shuffleDeck } from "./scripts/cards.js";
 import { getDealerHand, getPlayerBank, getPlayerHand, setPlayerBank, setPlayerBet } from "./scripts/state.js";
-import { sleep } from "./utils.js";
+import { sleep } from "./scripts/util.js";
 
 export function setupModal() {
     const playButton = document.getElementById("play-button");
