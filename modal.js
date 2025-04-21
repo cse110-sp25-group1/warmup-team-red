@@ -31,7 +31,7 @@ export function setupModal() {
             await sleep(750);
         }
 
-        showDealerHandValue(true);
+        showDealerHandValue(false, true);
 
         for (let i = 0; i < player.length; i++) {
             renderCard(player[i], ...getPlayerCardLocation(i, player.length));

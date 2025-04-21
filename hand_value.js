@@ -50,8 +50,9 @@ export const resetPlayerSum = () => {
  * 
  * @param {boolean} initial
  */
-export const showDealerHandValue = (initial = false) => {
-    const handValue = getHandValue(getDealerHand());
+export const showDealerHandValue = (revealFirst, initial = false) => {
+    const hand = getDealerHand();
+    const handValue = getHandValue(hand.slice(revealFirst ? 0 : 1, hand.length));
 
     const dealerHandValue = document.getElementById("dealer-hand-value");
     if (!dealerHandValue) return handValue;
