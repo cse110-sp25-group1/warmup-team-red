@@ -3,9 +3,9 @@
 import { moveCard, renderCard } from "./card.js";
 import { getDealerCardLocation, getPlayerCardLocation } from "./positions.js";
 import { dealCardsToDealer, dealCardsToPlayer } from "./scripts/cards.js";
-import { getHandValue } from "./scripts/game.js";
+import { actionPlayerHit, actionPlayerStand, getHandValue } from "./scripts/game.js";
 import { getDealerHand, getPlayerHand } from "./scripts/state.js";
-import { sleep } from "./utils.js";
+import { sleep } from "./scripts/util.js";
 
 
 export function setupActionButtons() {
@@ -13,42 +13,9 @@ export function setupActionButtons() {
     let standButton = document.getElementById("stand");
     if (!hitButton || !standButton) return;
 
-    hitButton.onclick = () => {
-        dealCardsToPlayer();
-        let cards = getPlayerHand();
-        let lastCard = cards[cards.length - 1];
+    hitButton.onclick = actionPlayerHit;
 
-        cards.slice(0, cards.length - 1).forEach((card, i) =>
-            moveCard(card, ...getPlayerCardLocation(i, cards.length)));
-        renderCard(lastCard, ...getPlayerCardLocation(cards.length - 1, cards.length));
-
-        const handValue = getHandValue(getPlayerHand());
-        if (handValue == 21) {
-            alert('win!');
-        } else if (handValue > 21) {
-            alert("lose!")
-        }
-    };
-
-    standButton.onclick = async () => {
-        while (getHandValue(getDealerHand()) <= 16) {
-            dealCardsToDealer();
-            let cards = getDealerHand();
-            let lastCard = cards[cards.length - 1];
-
-            cards.slice(0, cards.length - 1).forEach((card, i) =>
-                moveCard(card, ...getDealerCardLocation(i, cards.length)));
-            renderCard(lastCard, ...getDealerCardLocation(cards.length - 1, cards.length));
-            await sleep(750);
-        }
-
-        const handValue = getHandValue(getDealerHand());
-        if (handValue == 21) {
-            alert('you lost!');
-        } else if (handValue > 21) {
-            alert("you won!")
-        }
-    };
+    standButton.onclick = actionPlayerStand;
 }
 
 export function showActionButtons() {

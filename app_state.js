@@ -6,7 +6,7 @@ import { renderPhantomDeck } from "./deck.js";
 import { getPlayerCardLocation } from "./positions.js";
 
 /**
- * @import {Card} from "./card_data.js"
+ * @import {Card} from "./scripts/cards.js"
  */
 
 /**
